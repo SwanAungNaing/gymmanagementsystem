@@ -9,13 +9,13 @@ $error_msg = "";
 
 if (isset($_GET['delete_id'])) {
     $delete_id = $_GET['delete_id'];
-    $res_delete = deleteData('trainers', $mysqli, "`id`='" . $mysqli->real_escape_string($delete_id) . "'");
+    $res_delete = deleteData('certificates', $mysqli, "`id`='" . $mysqli->real_escape_string($delete_id) . "'");
     if ($res_delete) {
-        $url = $admin_base_url . "trainer_list.php?success=Trainer Delete Success";
+        $url = $admin_base_url . "certificate_list.php?success=Certificate Delete Success";
         header("Location: $url");
         exit;
     } else {
-        $url = $admin_base_url . "trainer_list.php?error=Trainer Delete Failed";
+        $url = $admin_base_url . "certificate_list.php?error=Certificate Delete Failed";
         header("Location: $url");
         exit;
     }
@@ -28,8 +28,9 @@ if (isset($_GET['error'])) {
     $error_msg = $_GET['error'];
 }
 
-// Fetch data from the 'trainers' table (Uncommented and corrected table name)
-$res = selectData('trainers', $mysqli, $column = "*", $where = "", $order = "ORDER BY id DESC");
+// Fetch certificates along with trainer names using a JOIN
+$sql = "SELECT c.*, t.name AS trainer_name FROM `certificates` c JOIN `trainers` t ON c.trainer_id = t.id ORDER BY c.id DESC";
+$res = $mysqli->query($sql);
 
 require "./layouts/header.php";
 ?>
@@ -40,7 +41,7 @@ require "./layouts/header.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trainer List</title>
+    <title>Certificate List</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
@@ -49,9 +50,9 @@ require "./layouts/header.php";
     <div class="content-wrapper">
         <div class="container-xxl flex-grow-1 container-p-y">
             <div class="d-flex justify-content-between">
-                <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Trainer/</span>List</h4>
+                <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Certificate/</span>List</h4>
                 <div class="">
-                    <a href="<?= htmlspecialchars($admin_base_url . "trainer_create.php") ?>" class="btn btn-primary">Add Trainer</a>
+                    <a href="<?= htmlspecialchars($admin_base_url . "certificate_create.php") ?>" class="btn btn-primary">Add Certificate</a>
                 </div>
             </div>
             <div class="row">
@@ -76,11 +77,9 @@ require "./layouts/header.php";
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Address</th>
-                                <th>Gender</th>
+                                <th>Certificate Name</th>
+                                <th>Trainer Name</th>
+                                <th>Image</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 <th>Action</th>
@@ -88,17 +87,20 @@ require "./layouts/header.php";
                         </thead>
                         <tbody>
                             <?php
-                            // Check if query was successful and has rows
                             if ($res && $res->num_rows > 0) {
                                 while ($row = $res->fetch_assoc()) {
                             ?>
                                     <tr>
                                         <td><?= htmlspecialchars($row['id']) ?></td>
                                         <td><?= htmlspecialchars($row['name']) ?></td>
-                                        <td><?= htmlspecialchars($row['email']) ?></td>
-                                        <td><?= htmlspecialchars($row['phone']) ?></td>
-                                        <td><?= htmlspecialchars($row['address']) ?></td>
-                                        <td><?= htmlspecialchars($row['gender']) ?></td>
+                                        <td><?= htmlspecialchars($row['trainer_name']) ?></td>
+                                        <td>
+                                            <?php if ($row['img_path']) { ?>
+                                                <img src="../<?= htmlspecialchars($row['img_path']) ?>" alt="Certificate Image" style="width: 100px; height: auto;" onerror="this.onerror=null;this.src='path/to/default/image.png';" />
+                                            <?php } else { ?>
+                                                No Image
+                                            <?php } ?>
+                                        </td>
                                         <td><?= date("Y/F/d h:i:s A", strtotime($row['created_at'])) ?></td>
                                         <td><?= date("Y/m/d h:i:s A", strtotime($row['updated_at'])) ?></td>
                                         <td>
@@ -110,7 +112,7 @@ require "./layouts/header.php";
                             } else {
                                 ?>
                                 <tr>
-                                    <td colspan="9" class="text-center">No trainers found.</td>
+                                    <td colspan="7" class="text-center">No certificates found.</td>
                                 </tr>
                             <?php
                             }
@@ -119,10 +121,7 @@ require "./layouts/header.php";
                     </table>
                 </div>
             </div>
-
         </div>
-
-        <div class="content-backdrop fade"></div>
     </div>
     <?php
     require "./layouts/footer.php";
@@ -131,7 +130,7 @@ require "./layouts/header.php";
     <script>
         $(document).ready(function() {
             $('.delete_btn').click(function() {
-                const id = $(this).data('id')
+                const id = $(this).data('id');
 
                 Swal.fire({
                     title: "Are you sure?",
@@ -143,12 +142,11 @@ require "./layouts/header.php";
                     reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = "trainer_list.php?delete_id=" + id
+                        window.location.href = "certificate_list.php?delete_id=" + id;
                     }
                 });
-
-            })
-        })
+            });
+        });
     </script>
 </body>
 

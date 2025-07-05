@@ -39,24 +39,25 @@
            <div class="collapse" id="dashboard">
              <ul class="nav nav-collapse">
                <li>
-                 <a href="../demo1/index.html">
+                 <a href="">
                    <span class="sub-item">ADD GYM</span>
                  </a>
                </li>
              </ul>
            </div>
          </li>
+
+         <!-- Trainer -->
          <li class="nav-item active">
            <a
              data-bs-toggle="collapse"
-             href="#gym"
-             class="collapsed"
-             aria-expanded="false">
+             href="#trainer"
+             class="collapsed">
              <i class="fas fa-layer-group"></i>
              <p>Trainer</p>
              <span class="caret"></span>
            </a>
-           <div class="collapse" id="gym">
+           <div class="collapse" id="trainer">
              <ul class="nav nav-collapse">
                <li>
                  <a href="trainer_create.php">
@@ -72,67 +73,73 @@
            </div>
          </li>
          </li>
+
+         <!-- Certificate -->
          <li class="nav-item active">
            <a
              data-bs-toggle="collapse"
-             href="#gym"
+             href="#certificate"
              class="collapsed"
              aria-expanded="false">
              <i class="fas fa-layer-group"></i>
              <p>Certificate</p>
              <span class="caret"></span>
            </a>
-           <div class="collapse" id="gym">
+           <div class="collapse" id="certificate">
              <ul class="nav nav-collapse">
                <li>
-                 <a href="trainer_create.php">
+                 <a href="certificate_create.php">
                    <span class="sub-item">Certificate_Create</span>
                  </a>
                </li>
                <li>
-                 <a href="trainer_list.php">
+                 <a href="certificate_list.php">
                    <span class="sub-item">Certificate_List</span>
                  </a>
                </li>
              </ul>
            </div>
          </li>
+
+         <!-- Member -->
          <li class="nav-item active">
            <a
              data-bs-toggle="collapse"
-             href="#gym"
+             href="#member"
              class="collapsed"
              aria-expanded="false">
              <i class="fas fa-layer-group"></i>
              <p>Members</p>
              <span class="caret"></span>
            </a>
-           <div class="collapse" id="gym">
+           <div class="collapse" id="member">
              <ul class="nav nav-collapse">
                <li>
-                 <a href="../demo1/index.html">
+                 <a href="member_create.php">
                    <span class="sub-item">Member_Create</span>
                  </a>
                </li>
                <li>
-                 <a href="../demo1/index.html">
+                 <a href="member_list.php">
                    <span class="sub-item">Member_List</span>
                  </a>
                </li>
              </ul>
            </div>
          </li>
+
+         <!-- Class -->
          <li class="nav-item active">
            <a
              data-bs-toggle="collapse"
-             href="#gym"
+             href="#class"
              class="collapsed"
              aria-expanded="false">
              <i class="fas fa-layer-group"></i>
              <p>Class</p>
              <span class="caret"></span>
            </a>
-           <div class="collapse" id="gym">
+           <div class="collapse" id="class">
              <ul class="nav nav-collapse">
                <li>
                  <a href="../demo1/index.html">
@@ -147,6 +154,8 @@
              </ul>
            </div>
          </li>
+
+         <!-- Trainer  -->
          <li class="nav-item active">
            <a
              data-bs-toggle="collapse"
