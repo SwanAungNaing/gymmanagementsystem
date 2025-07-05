@@ -1,5 +1,5 @@
 <?php
-require("./layouts/sidebar.php");
+// require("./layouts/sidebar.php");
 require '../requires/common.php';
 require "../requires/common_function.php";
 require "../requires/db.php";
@@ -9,7 +9,7 @@ $certificate_name = '';
 $certificate_name_error = '';
 $trainer_id = '';
 $trainer_id_error = '';
-$img_path = ''; // This will store the uploaded file path
+$img_path = '';
 $img_path_error = '';
 
 // Fetch all trainers to populate the dropdown
@@ -73,7 +73,7 @@ if (isset($_POST['form_sub']) && $_POST['form_sub'] == 1) {
         // Check if $error is still false before moving the file
         if (!$error) {
             if (move_uploaded_file($_FILES["certificate_image"]["tmp_name"], $target_file)) {
-                $img_path = str_replace('../', '', $target_file); // Store relative path for database
+                $img_path = str_replace('../', '', $target_file);
             } else {
                 $error = true;
                 $img_path_error = "Sorry, there was an error uploading your file.";
@@ -84,11 +84,11 @@ if (isset($_POST['form_sub']) && $_POST['form_sub'] == 1) {
         $img_path_error = "Please upload a certificate image.";
     }
 
-    if (!$error) { // If no validation or upload errors
+    if (!$error) {
         $data = [
             'name'       => $certificate_name,
             'trainer_id' => $trainer_id,
-            'img_path'   => $img_path // Store the relative path
+            'img_path'   => $img_path
         ];
 
         if (insertData('certificates', $mysqli, $data)) {
@@ -97,7 +97,7 @@ if (isset($_POST['form_sub']) && $_POST['form_sub'] == 1) {
             exit;
         } else {
             $error = true;
-            echo "Error inserting data: " . $mysqli->error; // For debugging
+            echo "Error inserting data: " . $mysqli->error;
         }
     }
 }
@@ -115,7 +115,7 @@ require "./layouts/header.php";
 </head>
 
 <body>
-    <div class="content-wrapper">
+    <div class="content-wrapper mt-5">
         <div class="container-xxl flex-grow-1 container-p-y">
             <div class="d-flex justify-content-between">
                 <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Certificate/</span>Create</h4>
