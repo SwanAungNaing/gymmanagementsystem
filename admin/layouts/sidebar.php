@@ -142,13 +142,13 @@
            <div class="collapse" id="class">
              <ul class="nav nav-collapse">
                <li>
-                 <a href="../demo1/index.html">
-                   <span class="sub-item">Trainer_Create</span>
+                 <a href="class_create.php">
+                   <span class="sub-item">Class_Create</span>
                  </a>
                </li>
                <li>
-                 <a href="../demo1/index.html">
-                   <span class="sub-item">Trainer_List</span>
+                 <a href="class_list.php">
+                   <span class="sub-item">Class_List</span>
                  </a>
                </li>
              </ul>
@@ -163,19 +163,19 @@
              class="collapsed"
              aria-expanded="false">
              <i class="fas fa-layer-group"></i>
-             <p>Trainer</p>
+             <p>Service</p>
              <span class="caret"></span>
            </a>
            <div class="collapse" id="gym">
              <ul class="nav nav-collapse">
                <li>
-                 <a href="../demo1/index.html">
-                   <span class="sub-item">Trainer_Create</span>
+                 <a href="service_create.php">
+                   <span class="sub-item">Service_Create</span>
                  </a>
                </li>
                <li>
-                 <a href="../demo1/index.html">
-                   <span class="sub-item">Trainer_List</span>
+                 <a href="service_list.php">
+                   <span class="sub-item">Service_List</span>
                  </a>
                </li>
              </ul>
