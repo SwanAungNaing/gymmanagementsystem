@@ -155,7 +155,7 @@
            </div>
          </li>
 
-         <!-- Trainer  -->
+         <!-- Service  -->
          <li class="nav-item active">
            <a
              data-bs-toggle="collapse"
@@ -181,6 +181,88 @@
              </ul>
            </div>
          </li>
+
+         <!-- Equipment  -->
+         <li class="nav-item active">
+           <a
+             data-bs-toggle="collapse"
+             href="#equipment"
+             class="collapsed"
+             aria-expanded="false">
+             <i class="fas fa-layer-group"></i>
+             <p>Equipment</p>
+             <span class="caret"></span>
+           </a>
+           <div class="collapse" id="equipment">
+             <ul class="nav nav-collapse">
+               <li>
+                 <a href="equipment_create.php">
+                   <span class="sub-item">Equipment_Create</span>
+                 </a>
+               </li>
+               <li>
+                 <a href="equipment_list.php">
+                   <span class="sub-item">Equipment_List</span>
+                 </a>
+               </li>
+             </ul>
+           </div>
+         </li>
+
+         <!-- Brand_Name -->
+         <li class="nav-item active">
+           <a
+             data-bs-toggle="collapse"
+             href="#brand"
+             class="collapsed"
+             aria-expanded="false">
+             <i class="fas fa-layer-group"></i>
+             <p>Brand_Name</p>
+             <span class="caret"></span>
+           </a>
+           <div class="collapse" id="brand">
+             <ul class="nav nav-collapse">
+               <li>
+                 <a href="brand_name_create.php">
+                   <span class="sub-item">Brand_Name_Create</span>
+                 </a>
+               </li>
+               <li>
+                 <a href="brand_name_list.php">
+                   <span class="sub-item">Brand_Name_List</span>
+                 </a>
+               </li>
+             </ul>
+           </div>
+         </li>
+
+         <!-- Equipment_Type -->
+         <li class="nav-item active">
+           <a
+             data-bs-toggle="collapse"
+             href="#e_type"
+             class="collapsed"
+             aria-expanded="false">
+             <i class="fas fa-layer-group"></i>
+             <p>Equipment_Type</p>
+             <span class="caret"></span>
+           </a>
+           <div class="collapse" id="e_type">
+             <ul class="nav nav-collapse">
+               <li>
+                 <a href="equipment_type_create.php">
+                   <span class="sub-item">Equipment_Type_Create</span>
+                 </a>
+               </li>
+               <li>
+                 <a href="equipment_type_list.php">
+                   <span class="sub-item">Equipment_Type_List</span>
+                 </a>
+               </li>
+             </ul>
+           </div>
+         </li>
+
          <li class="nav-section">
            <span class="sidebar-mini-icon">
              <i class="fa fa-ellipsis-h"></i>
