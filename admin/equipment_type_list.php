@@ -49,7 +49,7 @@ require "./layouts/header.php";
     <div class="content-wrapper">
         <div class="container-xxl flex-grow-1 container-p-y">
             <div class="d-flex justify-content-between">
-                <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Equipment/Type/</span>List</h4>
+                <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Equipment_Type/</span>List</h4>
                 <div class="">
                     <a href="<?= htmlspecialchars($admin_base_url . "equipment_type_create.php") ?>" class="btn btn-primary">Add Equipment Type</a>
                 </div>
