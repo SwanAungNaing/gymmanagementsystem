@@ -60,7 +60,7 @@ function createTable($mysqli)
                 (
                 id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                 name  VARCHAR(100) NOT NULL,
-                trainer_id INT,
+                trainer_id INT UNSIGNED,
                 img_path VARCHAR(255),
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -85,8 +85,8 @@ function createTable($mysqli)
                 (
                 id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                 batch_name VARCHAR(50),
-                trainer_id INT,
-                service_id INT,
+                trainer_id INT UNSIGNED,
+                service_id INT UNSIGNED,
                 start_date DATE,
                 end_date DATE,
                 price VARCHAR(50),
@@ -115,8 +115,8 @@ function createTable($mysqli)
     $class_member_sql = "CREATE TABLE IF NOT EXISTS `class_members`
                 (
                 id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                class_id INT,
-                member_id INT,
+                class_id INT UNSIGNED,
+                member_id INT UNSIGNED,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE CASCADE,
@@ -128,7 +128,7 @@ function createTable($mysqli)
     $class_payment_sql = "CREATE TABLE IF NOT EXISTS `class_payment`
                 (
                 id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                class_member_id INT,
+                class_member_id INT UNSIGNED,
                 total_amount VARCHAR(50),
                 order_date DATE,
                 status ENUM('paid', 'pending'),
@@ -142,7 +142,7 @@ function createTable($mysqli)
     $attendance_sql = "CREATE TABLE IF NOT EXISTS `attendance`
                 (
                 id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                class_member_id INT,
+                class_member_id INT  UNSIGNED,
                 date DATE,
                 status ENUM('present', 'absent'),
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -155,7 +155,7 @@ function createTable($mysqli)
     $member_weight_sql = "CREATE TABLE IF NOT EXISTS `member_weight`
                 (
                 id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                member_id INT,
+                member_id INT UNSIGNED,
                 date DATE,
                 curr_weight VARCHAR(20) NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -188,8 +188,8 @@ function createTable($mysqli)
     $equipment_sql = "CREATE TABLE IF NOT EXISTS `equipments`
                 (
                 id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                brand_name_id INT,
-                equipment_type_id INT,
+                brand_name_id INT UNSIGNED,
+                equipment_type_id INT UNSIGNED,
                 price VARCHAR(50),
                 quantity INT,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -203,8 +203,8 @@ function createTable($mysqli)
     $esale_order_sql = "CREATE TABLE IF NOT EXISTS `esale_order`
                 (
                 id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                equipment_id INT,
-                member_id INT,
+                equipment_id INT UNSIGNED,
+                member_id INT UNSIGNED,
                 quantity INT,
                 total_amount VARCHAR(50),
                 order_date DATETIME,
