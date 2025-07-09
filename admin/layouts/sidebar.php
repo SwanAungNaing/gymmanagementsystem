@@ -26,26 +26,6 @@
    <div class="sidebar-wrapper scrollbar scrollbar-inner">
      <div class="sidebar-content">
        <ul class="nav nav-secondary">
-         <li class="nav-item active">
-           <a
-             data-bs-toggle="collapse"
-             href="#dashboard"
-             class="collapsed"
-             aria-expanded="false">
-             <i class="fas fa-bars"></i>
-             <p>GYM</p>
-             <span class="caret"></span>
-           </a>
-           <div class="collapse" id="dashboard">
-             <ul class="nav nav-collapse">
-               <li>
-                 <a href="">
-                   <span class="sub-item">ADD GYM</span>
-                 </a>
-               </li>
-             </ul>
-           </div>
-         </li>
 
          <!-- Trainer -->
          <li class="nav-item active">
@@ -262,8 +242,147 @@
              </ul>
            </div>
          </li>
+         </li>
 
-         <li class="nav-section">
+         <!-- Class Member -->
+         <li class="nav-item active">
+           <a
+             data-bs-toggle="collapse"
+             href="#cm"
+             class="collapsed"
+             aria-expanded="false">
+             <i class="fas fa-layer-group"></i>
+             <p>Class _Member</p>
+             <span class="caret"></span>
+           </a>
+           <div class="collapse" id="cm">
+             <ul class="nav nav-collapse">
+               <li>
+                 <a href="class_member_create.php">
+                   <span class="sub-item">Class_Member_Create</span>
+                 </a>
+               </li>
+               <li>
+                 <a href="class_member_list.php">
+                   <span class="sub-item">Class_Member_List</span>
+                 </a>
+               </li>
+             </ul>
+           </div>
+         </li>
+         </li>
+
+         <!-- Attendance -->
+         <li class="nav-item active">
+           <a
+             data-bs-toggle="collapse"
+             href="#attendance"
+             class="collapsed"
+             aria-expanded="false">
+             <i class="fas fa-layer-group"></i>
+             <p>Attendance</p>
+             <span class="caret"></span>
+           </a>
+           <div class="collapse" id="attendance">
+             <ul class="nav nav-collapse">
+               <li>
+                 <a href="attendance_create.php">
+                   <span class="sub-item">Attendance_Create</span>
+                 </a>
+               </li>
+               <li>
+                 <a href="attendance_list.php">
+                   <span class="sub-item">Attendance_List</span>
+                 </a>
+               </li>
+             </ul>
+           </div>
+         </li>
+         </li>
+
+         <!-- Attendance -->
+         <li class="nav-item active">
+           <a
+             data-bs-toggle="collapse"
+             href="#payment"
+             class="collapsed"
+             aria-expanded="false">
+             <i class="fas fa-layer-group"></i>
+             <p>Class_Payment</p>
+             <span class="caret"></span>
+           </a>
+           <div class="collapse" id="payment">
+             <ul class="nav nav-collapse">
+               <li>
+                 <a href="class_payment_create.php">
+                   <span class="sub-item">Class_Payment_Create</span>
+                 </a>
+               </li>
+               <li>
+                 <a href="class_payment_list.php">
+                   <span class="sub-item">Class_Payment_List</span>
+                 </a>
+               </li>
+             </ul>
+           </div>
+         </li>
+         </li>
+
+         <!-- E_Sale Order -->
+         <li class="nav-item active">
+           <a
+             data-bs-toggle="collapse"
+             href="#order"
+             class="collapsed"
+             aria-expanded="false">
+             <i class="fas fa-layer-group"></i>
+             <p>E_Sale Order</p>
+             <span class="caret"></span>
+           </a>
+           <div class="collapse" id="order">
+             <ul class="nav nav-collapse">
+               <li>
+                 <a href="e_sale_order_create.php">
+                   <span class="sub-item">E_Sale_Order_Create</span>
+                 </a>
+               </li>
+               <li>
+                 <a href="e_sale_order_list.php">
+                   <span class="sub-item">E_Sale_Order_List</span>
+                 </a>
+               </li>
+             </ul>
+           </div>
+         </li>
+
+         <!-- Member Weight -->
+         <li class="nav-item active">
+           <a
+             data-bs-toggle="collapse"
+             href="#weight"
+             class="collapsed"
+             aria-expanded="false">
+             <i class="fas fa-layer-group"></i>
+             <p>Member Weight</p>
+             <span class="caret"></span>
+           </a>
+           <div class="collapse" id="weight">
+             <ul class="nav nav-collapse">
+               <li>
+                 <a href="member_weight_create.php">
+                   <span class="sub-item">Member_Weight_Create</span>
+                 </a>
+               </li>
+               <li>
+                 <a href="member_weight_list.php">
+                   <span class="sub-item">Member_Weight_List</span>
+                 </a>
+               </li>
+             </ul>
+           </div>
+         </li>
+
+         <!-- <li class="nav-section">
            <span class="sidebar-mini-icon">
              <i class="fa fa-ellipsis-h"></i>
            </span>
@@ -489,7 +608,7 @@
                </li>
              </ul>
            </div>
-         </li>
+         </li> -->
        </ul>
      </div>
    </div>

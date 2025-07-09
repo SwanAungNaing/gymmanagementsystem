@@ -8,10 +8,10 @@ $success_msg = "";
 $error_msg = "";
 
 if (isset($_GET['delete_id'])) {
-    $delete_id = $_GET['delete_id'];
-    $res_delete = deleteData('trainers', $mysqli, "`id`='" . $mysqli->real_escape_string($delete_id) . "'");
+    $delete_id = $mysqli->real_escape_string($_GET['delete_id']);
+    $res_delete = deleteData('trainers', $mysqli, "`id`='" . $delete_id . "'");
     if ($res_delete) {
-        $url = $admin_base_url . "trainer_list.php?success=Trainer Delete Success";
+        $url = $admin_base_url . "trainer_list.php?success=Trainer Deleted Successfully";
         header("Location: $url");
         exit;
     } else {
@@ -28,7 +28,6 @@ if (isset($_GET['error'])) {
     $error_msg = $_GET['error'];
 }
 
-// Fetch data from the 'trainers' table (Uncommented and corrected table name)
 $res = selectData('trainers', $mysqli, $column = "*", $where = "", $order = "ORDER BY id DESC");
 
 require "./layouts/header.php";
@@ -51,7 +50,7 @@ require "./layouts/header.php";
             <div class="d-flex justify-content-between">
                 <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Trainer/</span>List</h4>
                 <div class="">
-                    <a href="<?= htmlspecialchars($admin_base_url . "trainer_create.php") ?>" class="btn btn-primary">Add Trainer</a>
+                    <a href="<?= htmlspecialchars($admin_base_url . "trainer_create.php") ?>" class="btn btn-primary">Add New Trainer</a>
                 </div>
             </div>
             <div class="row">
@@ -87,34 +86,29 @@ require "./layouts/header.php";
                             </tr>
                         </thead>
                         <tbody>
-                            <?php
-                            // Check if query was successful and has rows
-                            if ($res && $res->num_rows > 0) {
-                                while ($row = $res->fetch_assoc()) {
-                            ?>
+                            <?php if ($res && $res->num_rows > 0) {
+                                while ($row = $res->fetch_assoc()) { ?>
                                     <tr>
                                         <td><?= htmlspecialchars($row['id']) ?></td>
                                         <td><?= htmlspecialchars($row['name']) ?></td>
                                         <td><?= htmlspecialchars($row['email']) ?></td>
                                         <td><?= htmlspecialchars($row['phone']) ?></td>
                                         <td><?= htmlspecialchars($row['address']) ?></td>
-                                        <td><?= htmlspecialchars($row['gender']) ?></td>
-                                        <td><?= date("Y/F/d h:i:s A", strtotime($row['created_at'])) ?></td>
-                                        <td><?= date("Y/m/d h:i:s A", strtotime($row['updated_at'])) ?></td>
+                                        <td><?= htmlspecialchars(ucfirst($row['gender'])) ?></td>
+                                        <td><?= date("Y/F/d h:i:s A", strtotime($row['created_at']))  ?></td>
+                                        <td><?= date("Y/m/d h:i:s A", strtotime($row['updated_at']))  ?></td>
                                         <td>
+                                            <a href="trainer_edit.php?id=<?= htmlspecialchars($row['id']) ?>" class="btn btn-sm btn-primary">Edit</a>
                                             <button type="button" class="btn btn-sm btn-danger delete_btn" data-id="<?= htmlspecialchars($row['id']) ?>">Delete</button>
                                         </td>
                                     </tr>
-                                <?php
-                                }
-                            } else {
-                                ?>
+                                <?php }
+                            } else { ?>
                                 <tr>
                                     <td colspan="9" class="text-center">No trainers found.</td>
                                 </tr>
-                            <?php
-                            }
-                            ?>
+                            <?php } ?>
+
                         </tbody>
                     </table>
                 </div>

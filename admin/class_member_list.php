@@ -1,3 +1,4 @@
+Zayar Maung, [7/8/2025 3:38 PM]
 <?php
 
 require '../requires/common.php';
@@ -9,13 +10,13 @@ $error_msg = "";
 
 if (isset($_GET['delete_id'])) {
     $delete_id = $_GET['delete_id'];
-    $res_delete = deleteData('brand_name', $mysqli, "`id`='" . $mysqli->real_escape_string($delete_id) . "'");
+    $res_delete = deleteData('class_members', $mysqli, "id='" . $mysqli->real_escape_string($delete_id) . "'");
     if ($res_delete) {
-        $url = $admin_base_url . "brand_name_list.php?success=Brand Name Deleted Successfully";
+        $url = $admin_base_url . "class_member_list.php?success=Class Member Deleted Successfully";
         header("Location: $url");
         exit;
     } else {
-        $url = $admin_base_url . "brand_name_list.php?error=Brand Name Delete Failed";
+        $url = $admin_base_url . "class_member_list.php?error=Class Member Delete Failed";
         header("Location: $url");
         exit;
     }
@@ -28,8 +29,13 @@ if (isset($_GET['error'])) {
     $error_msg = $_GET['error'];
 }
 
-// Fetch data from the 'brand_name' table
-$res = selectData('brand_name', $mysqli, $column = "*", $where = "", $order = "ORDER BY id DESC");
+// Fetch class members with joined class batch_name and member name
+$sql = "SELECT cm.*, c.batch_name AS class_batch_name, m.name AS member_name
+        FROM class_members cm
+        LEFT JOIN classes c ON cm.class_id = c.id
+        LEFT JOIN members m ON cm.member_id = m.id
+        ORDER BY cm.id DESC";
+$res = $mysqli->query($sql);
 
 require "./layouts/header.php";
 ?>
@@ -40,7 +46,7 @@ require "./layouts/header.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brand Name List</title>
+    <title>Class Member List</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
@@ -49,9 +55,9 @@ require "./layouts/header.php";
     <div class="content-wrapper">
         <div class="container-xxl flex-grow-1 container-p-y">
             <div class="d-flex justify-content-between">
-                <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Equipment_Brand_Name/</span>List</h4>
+                <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Class Member/</span>List</h4>
                 <div class="">
-                    <a href="<?= htmlspecialchars($admin_base_url . "brand_name_create.php") ?>" class="btn btn-primary">Add Brand Name</a>
+                    <a href="<?= htmlspecialchars($admin_base_url . "class_member_create.php") ?>" class="btn btn-primary">Assign Class Member</a>
                 </div>
             </div>
             <div class="row">
@@ -76,7 +82,8 @@ require "./layouts/header.php";
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Brand Name</th>
+                                <th>Class Batch Name</th>
+                                <th>Member Name</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 <th>Action</th>
@@ -89,7 +96,8 @@ require "./layouts/header.php";
                             ?>
                                     <tr>
                                         <td><?= htmlspecialchars($row['id']) ?></td>
-                                        <td><?= htmlspecialchars($row['name']) ?></td>
+                                        <td><?= htmlspecialchars($row['class_batch_name']) ?></td>
+                                        <td><?= htmlspecialchars($row['member_name']) ?></td>
                                         <td><?= date("Y/F/d h:i:s A", strtotime($row['created_at'])) ?></td>
                                         <td><?= date("Y/m/d h:i:s A", strtotime($row['updated_at'])) ?></td>
                                         <td>
@@ -101,7 +109,7 @@ require "./layouts/header.php";
                             } else {
                                 ?>
                                 <tr>
-                                    <td colspan="5" class="text-center">No brand names found.</td>
+                                    <td colspan="7" class="text-center">No class members found.</td>
                                 </tr>
                             <?php
                             }
@@ -131,7 +139,7 @@ require "./layouts/header.php";
                     reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = "brand_name_list.php?delete_id=" + id;
+                        window.location.href = "class_member_list.php?delete_id=" + id;
                     }
                 });
             });
