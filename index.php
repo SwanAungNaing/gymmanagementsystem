@@ -1,6 +1,6 @@
 <?php
-
 session_start();
+
 require "./requires/db.php";
 require "./requires/common.php";
 require "./requires/common_function.php";
