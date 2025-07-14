@@ -32,19 +32,7 @@ $res = selectData('trainers', $mysqli, $column = "*", $where = "", $order = "ORD
 
 require "./layouts/header.php";
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trainer List</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-</head>
-
-<body>
+<div style="overflow-y: auto; height:80vh;">
     <div class="content-wrapper">
         <div class="container-xxl flex-grow-1 container-p-y">
             <div class="d-flex justify-content-between">
@@ -98,7 +86,6 @@ require "./layouts/header.php";
                                         <td><?= date("Y/F/d h:i:s A", strtotime($row['created_at']))  ?></td>
                                         <td><?= date("Y/m/d h:i:s A", strtotime($row['updated_at']))  ?></td>
                                         <td>
-                                            <a href="trainer_edit.php?id=<?= htmlspecialchars($row['id']) ?>" class="btn btn-sm btn-primary">Edit</a>
                                             <button type="button" class="btn btn-sm btn-danger delete_btn" data-id="<?= htmlspecialchars($row['id']) ?>">Delete</button>
                                         </td>
                                     </tr>
@@ -144,6 +131,6 @@ require "./layouts/header.php";
             })
         })
     </script>
-</body>
+    </body>
 
-</html>
+    </html>

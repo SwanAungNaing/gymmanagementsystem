@@ -80,17 +80,7 @@ if (isset($_POST['form_sub']) && $_POST['form_sub'] == 1) {
 require "./layouts/header.php";
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Record Class Payment</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-
-<body>
+<div style="overflow-y: auto; height:80vh;">
     <div class="content-wrapper">
         <div class="container-xxl flex-grow-1 container-p-y">
             <div class="d-flex justify-content-between">
@@ -158,48 +148,46 @@ require "./layouts/header.php";
             </div>
         </div>
     </div>
-    <?php
-    require "./layouts/footer.php";
-    ?>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#class_member_id').change(function() {
-                const selectedClassMemberId = $(this).val();
-                const totalAmountInput = $('#total_amount');
+</div>
+<?php
+require "./layouts/footer.php";
+?>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#class_member_id').change(function() {
+            const selectedClassMemberId = $(this).val();
+            const totalAmountInput = $('#total_amount');
 
-                if (selectedClassMemberId) {
-                    // Make an AJAX call to get_class_amount.php
-                    $.ajax({
-                        url: '<?= htmlspecialchars($admin_base_url . "get_class_amount.php") ?>',
-                        type: 'GET',
-                        data: {
-                            class_member_id: selectedClassMemberId
-                        },
-                        dataType: 'json', // Expecting a JSON response
-                        success: function(response) {
-                            if (response.success) {
-                                totalAmountInput.val(response.amount);
-                            } else {
-                                // Clear the amount and show a warning if amount not found
-                                totalAmountInput.val('');
-                                alert('Could not retrieve class amount: ' + response.message);
-                            }
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            // Handle AJAX errors (e.g., network issues, server errors)
-                            console.error("AJAX Error: " + textStatus, errorThrown);
+            if (selectedClassMemberId) {
+                // Make an AJAX call to get_class_amount.php
+                $.ajax({
+                    url: '<?= htmlspecialchars($admin_base_url . "get_class_amount.php") ?>',
+                    type: 'GET',
+                    data: {
+                        class_member_id: selectedClassMemberId
+                    },
+                    dataType: 'json', // Expecting a JSON response
+                    success: function(response) {
+                        if (response.success) {
+                            totalAmountInput.val(response.amount);
+                        } else {
+                            // Clear the amount and show a warning if amount not found
                             totalAmountInput.val('');
-                            alert('An error occurred while fetching the class amount. Please try again.');
+                            alert('Could not retrieve class amount: ' + response.message);
                         }
-                    });
-                } else {
-                    // Clear the total amount if no class member is selected
-                    totalAmountInput.val('');
-                }
-            });
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        // Handle AJAX errors (e.g., network issues, server errors)
+                        console.error("AJAX Error: " + textStatus, errorThrown);
+                        totalAmountInput.val('');
+                        alert('An error occurred while fetching the class amount. Please try again.');
+                    }
+                });
+            } else {
+                // Clear the total amount if no class member is selected
+                totalAmountInput.val('');
+            }
         });
-    </script>
-</body>
-
-</html>
+    });
+</script>
