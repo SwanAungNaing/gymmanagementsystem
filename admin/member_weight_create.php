@@ -68,17 +68,7 @@ if (isset($_POST['form_sub']) && $_POST['form_sub'] == 1) {
 require "./layouts/header.php";
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Record Member Daily Weight</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-
-<body>
+<div style="overflow-y: auto; height:80vh;">
     <div class="content-wrapper">
         <div class="container-xxl flex-grow-1 container-p-y">
             <div class="d-flex justify-content-between">
@@ -132,9 +122,7 @@ require "./layouts/header.php";
             </div>
         </div>
     </div>
-    <?php
-    require "./layouts/footer.php";
-    ?>
-</body>
-
-</html>
+</div>
+<?php
+require "./layouts/footer.php";
+?> 

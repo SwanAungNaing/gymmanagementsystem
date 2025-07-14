@@ -39,12 +39,12 @@
            </a>
            <div class="collapse" id="trainer">
              <ul class="nav nav-collapse">
-               <li>
+               <li class="nav-each-link" data-value="trainer_create">
                  <a href="trainer_create.php">
                    <span class="sub-item">Trainer_Create</span>
                  </a>
                </li>
-               <li>
+               <li class="nav-each-link" data-value="trainer_list">
                  <a href="trainer_list.php">
                    <span class="sub-item">Trainer_List</span>
                  </a>
@@ -67,12 +67,12 @@
            </a>
            <div class="collapse" id="certificate">
              <ul class="nav nav-collapse">
-               <li>
+               <li class="nav-each-link" data-value="certificate_create">
                  <a href="certificate_create.php">
                    <span class="sub-item">Certificate_Create</span>
                  </a>
                </li>
-               <li>
+               <li class="nav-each-link" data-value="certificate_list">
                  <a href="certificate_list.php">
                    <span class="sub-item">Certificate_List</span>
                  </a>
@@ -94,12 +94,12 @@
            </a>
            <div class="collapse" id="member">
              <ul class="nav nav-collapse">
-               <li>
+               <li class="nav-each-link" data-value="member_create">
                  <a href="member_create.php">
                    <span class="sub-item">Member_Create</span>
                  </a>
                </li>
-               <li>
+               <li class="nav-each-link" data-value="member_list">
                  <a href="member_list.php">
                    <span class="sub-item">Member_List</span>
                  </a>
@@ -121,12 +121,12 @@
            </a>
            <div class="collapse" id="class">
              <ul class="nav nav-collapse">
-               <li>
+               <li class="nav-each-link" data-value="class_create">
                  <a href="class_create.php">
                    <span class="sub-item">Class_Create</span>
                  </a>
                </li>
-               <li>
+               <li class="nav-each-link" data-value="class_list">
                  <a href="class_list.php">
                    <span class="sub-item">Class_List</span>
                  </a>
@@ -148,12 +148,12 @@
            </a>
            <div class="collapse" id="gym">
              <ul class="nav nav-collapse">
-               <li>
+               <li class="nav-each-link" data-value="service_create">
                  <a href="service_create.php">
                    <span class="sub-item">Service_Create</span>
                  </a>
                </li>
-               <li>
+               <li class="nav-each-link" data-value="service_list">
                  <a href="service_list.php">
                    <span class="sub-item">Service_List</span>
                  </a>
@@ -175,12 +175,12 @@
            </a>
            <div class="collapse" id="equipment">
              <ul class="nav nav-collapse">
-               <li>
+               <li class="nav-each-link" data-value="equipment_create">
                  <a href="equipment_create.php">
                    <span class="sub-item">Equipment_Create</span>
                  </a>
                </li>
-               <li>
+               <li class="nav-each-link" data-value="equipment_list">
                  <a href="equipment_list.php">
                    <span class="sub-item">Equipment_List</span>
                  </a>
@@ -202,12 +202,12 @@
            </a>
            <div class="collapse" id="brand">
              <ul class="nav nav-collapse">
-               <li>
+               <li class="nav-each-link" data-value="brand_name_create">
                  <a href="brand_name_create.php">
                    <span class="sub-item">Brand_Name_Create</span>
                  </a>
                </li>
-               <li>
+               <li class="nav-each-link" data-value="brand_name_list">
                  <a href="brand_name_list.php">
                    <span class="sub-item">Brand_Name_List</span>
                  </a>
@@ -229,12 +229,12 @@
            </a>
            <div class="collapse" id="e_type">
              <ul class="nav nav-collapse">
-               <li>
+               <li class="nav-each-link" data-value="equipment_type_create">
                  <a href="equipment_type_create.php">
                    <span class="sub-item">Equipment_Type_Create</span>
                  </a>
                </li>
-               <li>
+               <li class="nav-each-link" data-value="equipment_type_list">
                  <a href="equipment_type_list.php">
                    <span class="sub-item">Equipment_Type_List</span>
                  </a>
@@ -257,12 +257,12 @@
            </a>
            <div class="collapse" id="cm">
              <ul class="nav nav-collapse">
-               <li>
+               <li class="nav-each-link" data-value="class_member_create">
                  <a href="class_member_create.php">
                    <span class="sub-item">Class_Member_Create</span>
                  </a>
                </li>
-               <li>
+               <li class="nav-each-link" data-value="class_member_list">
                  <a href="class_member_list.php">
                    <span class="sub-item">Class_Member_List</span>
                  </a>
@@ -285,12 +285,12 @@
            </a>
            <div class="collapse" id="attendance">
              <ul class="nav nav-collapse">
-               <li>
+               <li class="nav-each-link" data-value="attendance_create">
                  <a href="attendance_create.php">
                    <span class="sub-item">Attendance_Create</span>
                  </a>
                </li>
-               <li>
+               <li class="nav-each-link" data-value="attendance_list">
                  <a href="attendance_list.php">
                    <span class="sub-item">Attendance_List</span>
                  </a>
@@ -300,7 +300,7 @@
          </li>
          </li>
 
-         <!-- Attendance -->
+         <!-- Class Payment -->
          <li class="nav-item active">
            <a
              data-bs-toggle="collapse"
@@ -313,12 +313,12 @@
            </a>
            <div class="collapse" id="payment">
              <ul class="nav nav-collapse">
-               <li>
+               <li class="nav-each-link" data-value="class_payment_create">
                  <a href="class_payment_create.php">
                    <span class="sub-item">Class_Payment_Create</span>
                  </a>
                </li>
-               <li>
+               <li class="nav-each-link" data-value="class_payment_list">
                  <a href="class_payment_list.php">
                    <span class="sub-item">Class_Payment_List</span>
                  </a>
@@ -341,12 +341,12 @@
            </a>
            <div class="collapse" id="order">
              <ul class="nav nav-collapse">
-               <li>
+               <li class="nav-each-link" data-value="e_sale_order_create">
                  <a href="e_sale_order_create.php">
                    <span class="sub-item">E_Sale_Order_Create</span>
                  </a>
                </li>
-               <li>
+               <li class="nav-each-link" data-value="e_sale_order_list">
                  <a href="e_sale_order_list.php">
                    <span class="sub-item">E_Sale_Order_List</span>
                  </a>
@@ -368,12 +368,12 @@
            </a>
            <div class="collapse" id="weight">
              <ul class="nav nav-collapse">
-               <li>
+               <li class="nav-each-link" data-value="member_weight_create">
                  <a href="member_weight_create.php">
                    <span class="sub-item">Member_Weight_Create</span>
                  </a>
                </li>
-               <li>
+               <li class="nav-each-link" data-value="member_weight_list">
                  <a href="member_weight_list.php">
                    <span class="sub-item">Member_Weight_List</span>
                  </a>

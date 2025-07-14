@@ -54,17 +54,7 @@ if ($member_weights_res && $member_weights_res->num_rows > 0) {
 require "./layouts/header.php";
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Member Daily Weight List</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-
-<body>
+<div style="overflow-y: auto; height:80vh;">
     <div class="content-wrapper">
         <div class="container-xxl flex-grow-1 container-p-y">
             <div class="d-flex justify-content-between">
@@ -131,32 +121,30 @@ require "./layouts/header.php";
         </div>
         <div class="content-backdrop fade"></div>
     </div>
-    <?php
-    require "./layouts/footer.php";
-    ?>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        $(document).ready(function() {
-            $('.delete_btn').click(function() {
-                const id = $(this).data('id');
+</div>
+<?php
+require "./layouts/footer.php";
+?>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).ready(function() {
+        $('.delete_btn').click(function() {
+            const id = $(this).data('id');
 
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to revert this!",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes, delete it!",
-                    cancelButtonText: "No, cancel!",
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = "member_weight_list.php?delete_id=" + id;
-                    }
-                });
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel!",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "member_weight_list.php?delete_id=" + id;
+                }
             });
         });
-    </script>
-</body>
-
-</html>
+    });
+</script>
