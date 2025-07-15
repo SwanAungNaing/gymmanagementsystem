@@ -1,388 +1,389 @@
- <div class="sidebar" data-background-color="dark">
-   <div class="sidebar-logo">
-     <!-- Logo Header -->
-     <div class="logo-header" data-background-color="dark">
-       <a href="index.html" class="logo">
-         <img
-           src="assets/img/kaiadmin/logo_light.svg"
-           alt="navbar brand"
-           class="navbar-brand"
-           height="20" />
-       </a>
-       <div class="nav-toggle">
-         <button class="btn btn-toggle toggle-sidebar">
-           <i class="gg-menu-right"></i>
-         </button>
-         <button class="btn btn-toggle sidenav-toggler">
-           <i class="gg-menu-left"></i>
-         </button>
-       </div>
-       <button class="topbar-toggler more">
-         <i class="gg-more-vertical-alt"></i>
-       </button>
-     </div>
-     <!-- End Logo Header -->
-   </div>
-   <div class="sidebar-wrapper scrollbar scrollbar-inner">
-     <div class="sidebar-content">
-       <ul class="nav nav-secondary">
+<div class="sidebar" data-background-color="dark">
+  <div class="sidebar-logo">
+    <!-- Logo Header -->
+    <div class="logo-header" data-background-color="dark">
+      <a href="index.html" class="logo">
+        <img
+          src="assets/img/kaiadmin/logo_light.svg"
+          alt="navbar brand"
+          class="navbar-brand"
+          height="20" />
+      </a>
+      <div class="nav-toggle">
+        <button class="btn btn-toggle toggle-sidebar">
+          <i class="gg-menu-right"></i>
+        </button>
+        <button class="btn btn-toggle sidenav-toggler">
+          <i class="gg-menu-left"></i>
+        </button>
+      </div>
+      <button class="topbar-toggler more">
+        <i class="gg-more-vertical-alt"></i>
+      </button>
+    </div>
+    <!-- End Logo Header -->
+  </div>
+  <div class="sidebar-wrapper scrollbar scrollbar-inner">
+    <div class="sidebar-content">
+      <ul class="nav nav-secondary">
 
-         <!-- Trainer -->
-         <li class="nav-item active">
-           <a
-             data-bs-toggle="collapse"
-             href="#trainer"
-             class="collapsed">
-             <i class="fas fa-layer-group"></i>
-             <p>Trainer</p>
-             <span class="caret"></span>
-           </a>
-           <div class="collapse" id="trainer">
-             <ul class="nav nav-collapse">
-               <li class="nav-each-link" data-value="trainer_create">
-                 <a href="trainer_create.php">
-                   <span class="sub-item">Trainer Create</span>
-                 </a>
-               </li>
-               <li class="nav-each-link" data-value="trainer_list">
-                 <a href="trainer_list.php">
-                   <span class="sub-item">Trainer List</span>
-                 </a>
-               </li>
-             </ul>
-           </div>
-         </li>
-         </li>
+        <!-- Trainer -->
+        <li class="nav-item active">
+          <a
+            data-bs-toggle="collapse"
+            href="#trainer"
+            class="collapsed">
+            <i class="fas fa-user-tie"></i>
+            <p>Trainer</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="trainer">
+            <ul class="nav nav-collapse">
+              <li>
+                <a href="trainer_create.php">
+                  <span class="sub-item">Trainer Create</span>
+                </a>
+              </li>
+              <li>
+                <a href="trainer_list.php">
+                  <span class="sub-item">Trainer List</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        </li>
 
-         <!-- Certificate -->
-         <li class="nav-item active">
-           <a
-             data-bs-toggle="collapse"
-             href="#certificate"
-             class="collapsed"
-             aria-expanded="false">
-             <i class="fas fa-layer-group"></i>
-             <p>Certificate</p>
-             <span class="caret"></span>
-           </a>
-           <div class="collapse" id="certificate">
-             <ul class="nav nav-collapse">
-               <li class="nav-each-link" data-value="certificate_create">
-                 <a href="certificate_create.php">
-                   <span class="sub-item">Certificate Create</span>
-                 </a>
-               </li>
-               <li class="nav-each-link" data-value="certificate_list">
-                 <a href="certificate_list.php">
-                   <span class="sub-item">Certificate List</span>
-                 </a>
-               </li>
-             </ul>
-           </div>
-         </li>
+        <!-- Certificate -->
+        <li class="nav-item active">
+          <a
+            data-bs-toggle="collapse"
+            href="#certificate"
+            class="collapsed"
+            aria-expanded="false">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <p>Certificate</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="certificate">
+            <ul class="nav nav-collapse">
+              <li>
+                <a href="certificate_create.php">
+                  <span class="sub-item">Certificate Create</span>
+                </a>
+              </li>
+              <li>
+                <a href="certificate_list.php">
+                  <span class="sub-item">Certificate List</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
 
-         <!-- Member -->
-         <li class="nav-item active">
-           <a
-             data-bs-toggle="collapse"
-             href="#member"
-             class="collapsed"
-             aria-expanded="false">
-             <i class="fas fa-layer-group"></i>
-             <p>Members</p>
-             <span class="caret"></span>
-           </a>
-           <div class="collapse" id="member">
-             <ul class="nav nav-collapse">
-               <li class="nav-each-link" data-value="member_create">
-                 <a href="member_create.php">
-                   <span class="sub-item">Member Create</span>
-                 </a>
-               </li>
-               <li class="nav-each-link" data-value="member_list">
-                 <a href="member_list.php">
-                   <span class="sub-item">Member List</span>
-                 </a>
-               </li>
-             </ul>
-           </div>
-         </li>
+        <!-- Service  -->
+        <li class="nav-item active">
+          <a
+            data-bs-toggle="collapse"
+            href="#gym"
+            class="collapsed"
+            aria-expanded="false">
+            <i class="fas fa-handshake"></i>
+            <p>Service</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="gym">
+            <ul class="nav nav-collapse">
+              <li>
+                <a href="service_create.php">
+                  <span class="sub-item">Service Create</span>
+                </a>
+              </li>
+              <li>
+                <a href="service_list.php">
+                  <span class="sub-item">Service List</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
 
-         <!-- Class -->
-         <li class="nav-item active">
-           <a
-             data-bs-toggle="collapse"
-             href="#class"
-             class="collapsed"
-             aria-expanded="false">
-             <i class="fas fa-layer-group"></i>
-             <p>Class</p>
-             <span class="caret"></span>
-           </a>
-           <div class="collapse" id="class">
-             <ul class="nav nav-collapse">
-               <li class="nav-each-link" data-value="class_create">
-                 <a href="class_create.php">
-                   <span class="sub-item">Class Create</span>
-                 </a>
-               </li>
-               <li class="nav-each-link" data-value="class_list">
-                 <a href="class_list.php">
-                   <span class="sub-item">Class List</span>
-                 </a>
-               </li>
-             </ul>
-           </div>
-         </li>
+        <!-- Member -->
+        <li class="nav-item active">
+          <a
+            data-bs-toggle="collapse"
+            href="#member"
+            class="collapsed"
+            aria-expanded="false">
+            <i class="fas fa-user-gear"></i>
+            <p>Members</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="member">
+            <ul class="nav nav-collapse">
+              <li>
+                <a href="member_create.php">
+                  <span class="sub-item">Member Create</span>
+                </a>
+              </li>
+              <li>
+                <a href="member_list.php">
+                  <span class="sub-item">Member List</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
 
-         <!-- Service  -->
-         <li class="nav-item active">
-           <a
-             data-bs-toggle="collapse"
-             href="#gym"
-             class="collapsed"
-             aria-expanded="false">
-             <i class="fas fa-layer-group"></i>
-             <p>Service</p>
-             <span class="caret"></span>
-           </a>
-           <div class="collapse" id="gym">
-             <ul class="nav nav-collapse">
-               <li class="nav-each-link" data-value="service_create">
-                 <a href="service_create.php">
-                   <span class="sub-item">Service Create</span>
-                 </a>
-               </li>
-               <li class="nav-each-link" data-value="service_list">
-                 <a href="service_list.php">
-                   <span class="sub-item">Service List</span>
-                 </a>
-               </li>
-             </ul>
-           </div>
-         </li>
+        <!-- Class -->
+        <li class="nav-item active">
+          <a
+            data-bs-toggle="collapse"
+            href="#class"
+            class="collapsed"
+            aria-expanded="false">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <p>Class</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="class">
+            <ul class="nav nav-collapse">
+              <li>
+                <a href="class_create.php">
+                  <span class="sub-item">Class Create</span>
+                </a>
+              </li>
+              <li>
+                <a href="class_list.php">
+                  <span class="sub-item">Class List</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
 
-         <!-- Equipment  -->
-         <li class="nav-item active">
-           <a
-             data-bs-toggle="collapse"
-             href="#equipment"
-             class="collapsed"
-             aria-expanded="false">
-             <i class="fas fa-layer-group"></i>
-             <p>Equipment</p>
-             <span class="caret"></span>
-           </a>
-           <div class="collapse" id="equipment">
-             <ul class="nav nav-collapse">
-               <li class="nav-each-link" data-value="equipment_create">
-                 <a href="equipment_create.php">
-                   <span class="sub-item">Equipment Create</span>
-                 </a>
-               </li>
-               <li class="nav-each-link" data-value="equipment_list">
-                 <a href="equipment_list.php">
-                   <span class="sub-item">Equipment List</span>
-                 </a>
-               </li>
-             </ul>
-           </div>
-         </li>
+        <!-- Class Member -->
+        <li class="nav-item active">
+          <a
+            data-bs-toggle="collapse"
+            href="#cm"
+            class="collapsed"
+            aria-expanded="false">
+            <i class="fas fa-users"></i>
+            <p>Class Member</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="cm">
+            <ul class="nav nav-collapse">
+              <li>
+                <a href="class_member_create.php">
+                  <span class="sub-item">Class Member Create</span>
+                </a>
+              </li>
+              <li>
+                <a href="class_member_list.php">
+                  <span class="sub-item">Class Member List</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        </li>
 
-         <!-- Brand_Name -->
-         <li class="nav-item active">
-           <a
-             data-bs-toggle="collapse"
-             href="#brand"
-             class="collapsed"
-             aria-expanded="false">
-             <i class="fas fa-layer-group"></i>
-             <p>Brand Name</p>
-             <span class="caret"></span>
-           </a>
-           <div class="collapse" id="brand">
-             <ul class="nav nav-collapse">
-               <li class="nav-each-link" data-value="brand_name_create">
-                 <a href="brand_name_create.php">
-                   <span class="sub-item">Brand Name Create</span>
-                 </a>
-               </li>
-               <li class="nav-each-link" data-value="brand_name_list">
-                 <a href="brand_name_list.php">
-                   <span class="sub-item">Brand Name List</span>
-                 </a>
-               </li>
-             </ul>
-           </div>
-         </li>
+        <!-- Class_Payment -->
+        <li class="nav-item active">
+          <a
+            data-bs-toggle="collapse"
+            href="#payment"
+            class="collapsed"
+            aria-expanded="false">
+            <i class="fas fa-credit-card"></i>
+            <p>Class Payment</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="payment">
+            <ul class="nav nav-collapse">
+              <li>
+                <a href="class_payment_create.php">
+                  <span class="sub-item">Class Payment Create</span>
+                </a>
+              </li>
+              <li>
+                <a href="class_payment_list.php">
+                  <span class="sub-item">Class Payment List</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        </li>
 
-         <!-- Equipment_Type -->
-         <li class="nav-item active">
-           <a
-             data-bs-toggle="collapse"
-             href="#e_type"
-             class="collapsed"
-             aria-expanded="false">
-             <i class="fas fa-layer-group"></i>
-             <p>Equipment Type</p>
-             <span class="caret"></span>
-           </a>
-           <div class="collapse" id="e_type">
-             <ul class="nav nav-collapse">
-               <li class="nav-each-link" data-value="equipment_type_create">
-                 <a href="equipment_type_create.php">
-                   <span class="sub-item">Equipment Type Create</span>
-                 </a>
-               </li>
-               <li class="nav-each-link" data-value="equipment_type_list">
-                 <a href="equipment_type_list.php">
-                   <span class="sub-item">Equipment Type List</span>
-                 </a>
-               </li>
-             </ul>
-           </div>
-         </li>
-         </li>
+        <!-- Attendance -->
+        <li class="nav-item active">
+          <a
+            data-bs-toggle="collapse"
+            href="#attendance"
+            class="collapsed"
+            aria-expanded="false">
+            <i class="fas fa-clipboard-check"></i>
+            <p>Attendance</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="attendance">
+            <ul class="nav nav-collapse">
+              <li>
+                <a href="attendance_create.php">
+                  <span class="sub-item">Attendance Create</span>
+                </a>
+              </li>
+              <li>
+                <a href="attendance_list.php">
+                  <span class="sub-item">Attendance List</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        </li>
 
-         <!-- Class Member -->
-         <li class="nav-item active">
-           <a
-             data-bs-toggle="collapse"
-             href="#cm"
-             class="collapsed"
-             aria-expanded="false">
-             <i class="fas fa-layer-group"></i>
-             <p>Class Member</p>
-             <span class="caret"></span>
-           </a>
-           <div class="collapse" id="cm">
-             <ul class="nav nav-collapse">
-               <li class="nav-each-link" data-value="class_member_create">
-                 <a href="class_member_create.php">
-                   <span class="sub-item">Class Member Create</span>
-                 </a>
-               </li>
-               <li class="nav-each-link" data-value="class_member_list">
-                 <a href="class_member_list.php">
-                   <span class="sub-item">Class Member List</span>
-                 </a>
-               </li>
-             </ul>
-           </div>
-         </li>
-         </li>
+        <!-- Member Weight -->
+        <li class="nav-item active">
+          <a
+            data-bs-toggle="collapse"
+            href="#weight"
+            class="collapsed"
+            aria-expanded="false">
+            <i class="fas fa-weight"></i>
+            <p>Member Weight</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="weight">
+            <ul class="nav nav-collapse">
+              <li>
+                <a href="member_weight_create.php">
+                  <span class="sub-item">Member Weight Create</span>
+                </a>
+              </li>
+              <li>
+                <a href="member_weight_list.php">
+                  <span class="sub-item">Member Weight List</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
 
-         <!-- Attendance -->
-         <li class="nav-item active">
-           <a
-             data-bs-toggle="collapse"
-             href="#attendance"
-             class="collapsed"
-             aria-expanded="false">
-             <i class="fas fa-layer-group"></i>
-             <p>Attendance</p>
-             <span class="caret"></span>
-           </a>
-           <div class="collapse" id="attendance">
-             <ul class="nav nav-collapse">
-               <li class="nav-each-link" data-value="attendance_create">
-                 <a href="attendance_create.php">
-                   <span class="sub-item">Attendance Create</span>
-                 </a>
-               </li>
-               <li class="nav-each-link" data-value="attendance_list">
-                 <a href="attendance_list.php">
-                   <span class="sub-item">Attendance List</span>
-                 </a>
-               </li>
-             </ul>
-           </div>
-         </li>
-         </li>
+        <!-- Brand_Name -->
+        <li class="nav-item active">
+          <a
+            data-bs-toggle="collapse"
+            href="#brand"
+            class="collapsed"
+            aria-expanded="false">
+            <i class="fas fa-tags"></i>
+            <p>Brand Name</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="brand">
+            <ul class="nav nav-collapse">
+              <li>
+                <a href="brand_name_create.php">
+                  <span class="sub-item">Brand Name Create</span>
+                </a>
+              </li>
+              <li>
+                <a href="brand_name_list.php">
+                  <span class="sub-item">Brand Name List</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
 
-         <!-- Class Payment -->
-         <li class="nav-item active">
-           <a
-             data-bs-toggle="collapse"
-             href="#payment"
-             class="collapsed"
-             aria-expanded="false">
-             <i class="fas fa-layer-group"></i>
-             <p>Class Payment</p>
-             <span class="caret"></span>
-           </a>
-           <div class="collapse" id="payment">
-             <ul class="nav nav-collapse">
-               <li class="nav-each-link" data-value="class_payment_create">
-                 <a href="class_payment_create.php">
-                   <span class="sub-item">Class Payment Create</span>
-                 </a>
-               </li>
-               <li class="nav-each-link" data-value="class_payment_list">
-                 <a href="class_payment_list.php">
-                   <span class="sub-item">Class Payment List</span>
-                 </a>
-               </li>
-             </ul>
-           </div>
-         </li>
-         </li>
+        <!-- Equipment_Type -->
+        <li class="nav-item active">
+          <a
+            data-bs-toggle="collapse"
+            href="#e_type"
+            class="collapsed"
+            aria-expanded="false">
+            <i class="fas fa-cogs"></i>
+            <p>Equipment Type</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="e_type">
+            <ul class="nav nav-collapse">
+              <li>
+                <a href="equipment_type_create.php">
+                  <span class="sub-item">Equipment Type Create</span>
+                </a>
+              </li>
+              <li>
+                <a href="equipment_type_list.php">
+                  <span class="sub-item">Equipment Type List</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+        </li>
 
-         <!-- E_Sale Order -->
-         <li class="nav-item active">
-           <a
-             data-bs-toggle="collapse"
-             href="#order"
-             class="collapsed"
-             aria-expanded="false">
-             <i class="fas fa-layer-group"></i>
-             <p>E-Sale Order</p>
-             <span class="caret"></span>
-           </a>
-           <div class="collapse" id="order">
-             <ul class="nav nav-collapse">
-               <li class="nav-each-link" data-value="e_sale_order_create">
-                 <a href="e_sale_order_create.php">
-                   <span class="sub-item">E-Sale Order Create</span>
-                 </a>
-               </li>
-               <li class="nav-each-link" data-value="e_sale_order_list">
-                 <a href="e_sale_order_list.php">
-                   <span class="sub-item">E-Sale Order List</span>
-                 </a>
-               </li>
-             </ul>
-           </div>
-         </li>
+        <!-- Equipment  -->
+        <li class="nav-item active">
+          <a
+            data-bs-toggle="collapse"
+            href="#equipment"
+            class="collapsed"
+            aria-expanded="false">
+            <i class="fas fa-dumbbell"></i>
+            <p>Equipment</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="equipment">
+            <ul class="nav nav-collapse">
+              <li>
+                <a href="equipment_create.php">
+                  <span class="sub-item">Equipment Create</span>
+                </a>
+              </li>
+              <li>
+                <a href="equipment_list.php">
+                  <span class="sub-item">Equipment List</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
 
-         <!-- Member Weight -->
-         <li class="nav-item active">
-           <a
-             data-bs-toggle="collapse"
-             href="#weight"
-             class="collapsed"
-             aria-expanded="false">
-             <i class="fas fa-layer-group"></i>
-             <p>Member Weight</p>
-             <span class="caret"></span>
-           </a>
-           <div class="collapse" id="weight">
-             <ul class="nav nav-collapse">
-               <li class="nav-each-link" data-value="member_weight_create">
-                 <a href="member_weight_create.php">
-                   <span class="sub-item">Member Weight Create</span>
-                 </a>
-               </li>
-               <li class="nav-each-link" data-value="member_weight_list">
-                 <a href="member_weight_list.php">
-                   <span class="sub-item">Member Weight List</span>
-                 </a>
-               </li>
-             </ul>
-           </div>
-         </li>
+        <!-- E_Sale Order -->
+        <li class="nav-item active">
+          <a
+            data-bs-toggle="collapse"
+            href="#order"
+            class="collapsed"
+            aria-expanded="false">
+            <i class="fas fa-shopping-cart"></i>
+            <p>E-Sale Order</p>
+            <span class="caret"></span>
+          </a>
+          <div class="collapse" id="order">
+            <ul class="nav nav-collapse">
+              <li>
+                <a href="e_sale_order_create.php">
+                  <span class="sub-item">E-Sale Order Create</span>
+                </a>
+              </li>
+              <li>
+                <a href="e_sale_order_list.php">
+                  <span class="sub-item">E-Sale Order List</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
 
-         <!-- <li class="nav-section">
+
+        <!-- <li class="nav-section">
            <span class="sidebar-mini-icon">
              <i class="fa fa-ellipsis-h"></i>
            </span>
@@ -448,7 +449,8 @@
            <a data-bs-toggle="collapse" href="#sidebarLayouts">
              <i class="fas fa-th-list"></i>
              <p>Sidebar Layouts</p>
-             <span class="caret"></span>
+
+<span class="caret"></span>
            </a>
            <div class="collapse" id="sidebarLayouts">
              <ul class="nav nav-collapse">
@@ -569,7 +571,9 @@
                <li>
                  <a data-bs-toggle="collapse" href="#subnav1">
                    <span class="sub-item">Level 1</span>
-                   <span class="caret"></span>
+
+Jai Nom Pha, [7/15/2025 1:43 PM]
+<span class="caret"></span>
                  </a>
                  <div class="collapse" id="subnav1">
                    <ul class="nav nav-collapse subnav">
@@ -609,7 +613,7 @@
              </ul>
            </div>
          </li> -->
-       </ul>
-     </div>
-   </div>
- </div>
+      </ul>
+    </div>
+  </div>
+</div>
