@@ -32,6 +32,7 @@ $res = selectData('trainers', $mysqli, $column = "*", $where = "", $order = "ORD
 
 require "./layouts/header.php";
 ?>
+
 <div style="overflow-y: auto; height:80vh;">
     <div class="content-wrapper">
         <div class="container-xxl flex-grow-1 container-p-y">
@@ -86,6 +87,7 @@ require "./layouts/header.php";
                                         <td><?= date("Y/F/d h:i:s A", strtotime($row['created_at']))  ?></td>
                                         <td><?= date("Y/m/d h:i:s A", strtotime($row['updated_at']))  ?></td>
                                         <td>
+                                            <a href="<?= $admin_base_url . "trainer_edit.php?id=" . $row['id'] ?>" class="btn btn-sm btn-primary">Edit</a>
                                             <button type="button" class="btn btn-sm btn-danger delete_btn" data-id="<?= htmlspecialchars($row['id']) ?>">Delete</button>
                                         </td>
                                     </tr>

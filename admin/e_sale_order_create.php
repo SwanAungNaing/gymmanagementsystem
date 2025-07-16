@@ -83,7 +83,7 @@ if (isset($_POST['form_sub']) && $_POST['form_sub'] == 1) {
         ];
 
         if (insertData('esale_order', $mysqli, $data)) {
-            $url = $admin_base_url . "esale_order_list.php?success=Equipment Sale Order Recorded Successfully";
+            $url = $admin_base_url . "e_sale_order_list.php?success=Equipment Sale Order Recorded Successfully";
             header("Location: $url");
             exit;
         } else {
@@ -101,7 +101,7 @@ require "./layouts/header.php";
             <div class="d-flex justify-content-between">
                 <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Equipment Sales/</span>Record</h4>
                 <div class="">
-                    <a href="<?= htmlspecialchars($admin_base_url . "esale_order_list.php") ?>" class="btn btn-dark">Back</a>
+                    <a href="<?= htmlspecialchars($admin_base_url . "e_sale_order_list.php") ?>" class="btn btn-dark">Back</a>
                 </div>
             </div>
             <div class="d-flex justify-content-center">
@@ -182,20 +182,18 @@ require "./layouts/footer.php";
     $(document).ready(function() {
         function calculateTotalAmount() {
             const selectedOption = $('#equipment_id option:selected');
-            const price = parseFloat(selectedOption.data('price')) || 0; // Get price from data-price attribute
+            const price = parseFloat(selectedOption.data('price')) || 0;
             const quantity = parseInt($('#quantity').val()) || 0;
 
             const total = price * quantity;
 
-            $('#total_amount_display').val(total.toFixed(2)); // Display with 2 decimal places
-            $('#total_amount_hidden').val(total.toFixed(2)); // Set hidden field for submission
+            $('#total_amount_display').val(total.toFixed(2));
+            $('#total_amount_hidden').val(total.toFixed(2));
         }
 
         // Attach change and keyup listeners
         $('#equipment_id').change(calculateTotalAmount);
-        $('#quantity').on('input', calculateTotalAmount); // Use 'input' for real-time updates as user types
-
-        // Initial calculation if fields are pre-filled (e.g., after a validation error)
+        $('#quantity').on('input', calculateTotalAmount);
         calculateTotalAmount();
     });
 </script>
