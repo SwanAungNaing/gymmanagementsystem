@@ -125,4 +125,4 @@ require "./layouts/header.php";
 </div>
 <?php
 require "./layouts/footer.php";
-?> 
+?>
