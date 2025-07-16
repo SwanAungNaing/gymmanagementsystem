@@ -1,4 +1,5 @@
 <?php
+require("../auth/check_auth.php");
 require("../requires/db.php");
 include_once(__DIR__ . '/layouts/header.php');
 
@@ -19,7 +20,7 @@ $e_sale_order_count = $e_sale_order_result->fetch_assoc()['total'];
 
 ?>
 
-<div style="overflow-y: auto; height:80vh;">
+<div style="overflow-y: auto; height:80vh;" class="bg-secondary">
   <div class="container">
     <div class="page-inner">
       <div

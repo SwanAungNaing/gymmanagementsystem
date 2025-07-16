@@ -4,6 +4,9 @@ session_start();
 require "./requires/db.php";
 require "./requires/common.php";
 require "./requires/common_function.php";
+if (isset($_COOKIE['user'])) {
+    header("location:./admin/index.php");
+}
 $error = false;
 $email =
   $email_error =
@@ -41,6 +44,7 @@ if (isset($_POST['form_sub']) && $_POST['form_sub'] == 1) {
       $old_password = $old_user['password'];
       if ($old_password === md5($password)) {
         $_SESSION['email'] = $old_user['email'];
+        setcookie("user", json_encode($old_user), time() + 60 * 60 * 24 * 30, "/");
         header("Location: $admin_base_url");
       } else {
         $password_error = "Password is wrong!";
@@ -70,8 +74,13 @@ if (isset($_POST['form_sub']) && $_POST['form_sub'] == 1) {
 
         <div class="card shadow rounded-4">
           <div class="card-body p-4">
-            <h3 class="text-center mb-4">Admin Login</h3>
-
+            <h3 class="text-center mb-4">Admin Login</h3> 
+            <?php if(isset($_GET['invalid'])){ ?>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <?= $_GET['invalid']; ?>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <?php } ?>
             <form method="POST">
               <div class="mb-3">
 
@@ -102,5 +111,6 @@ if (isset($_POST['form_sub']) && $_POST['form_sub'] == 1) {
   </div>
 
 </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>

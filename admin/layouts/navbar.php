@@ -334,13 +334,16 @@
               </li>
               <li>
                 <div class="dropdown-divider"></div>
-                <!-- <a class="dropdown-item" href="#">My Profile</a>
-                <a class="dropdown-item" href="#">My Balance</a>
+                <a class="dropdown-item" href="#">My Profile</a>
+               <!--  <a class="dropdown-item" href="#">My Balance</a>
                 <a class="dropdown-item" href="#">Inbox</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Account Setting</a> -->
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="../logout.php">Logout</a>
+                <form method="post">
+                  <input type="hidden" name="logout">
+                <button type="submit" class="dropdown-item">Logout</button>
+                </form>
               </li>
             </div>
           </ul>
