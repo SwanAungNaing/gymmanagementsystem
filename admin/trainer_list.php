@@ -1,5 +1,4 @@
 <?php
-
 require '../requires/common.php';
 require "../requires/common_function.php";
 require "../requires/db.php";
@@ -9,16 +8,20 @@ $error_msg = "";
 
 if (isset($_GET['delete_id'])) {
     $delete_id = $mysqli->real_escape_string($_GET['delete_id']);
-    $res_delete = deleteData('trainers', $mysqli, "`id`='" . $delete_id . "'");
-    if ($res_delete) {
-        $url = $admin_base_url . "trainer_list.php?success=Trainer Deleted Successfully";
-        header("Location: $url");
-        exit;
-    } else {
-        $url = $admin_base_url . "trainer_list.php?error=Trainer Delete Failed";
-        header("Location: $url");
-        exit;
+    $cert_query = $mysqli->query("SELECT img_path FROM certificates WHERE trainer_id = '$delete_id'");
+    while ($cert = $cert_query->fetch_assoc()) {
+        $file_path = '../' . $cert['img_path'];
+        if (file_exists($file_path)) {
+            unlink($file_path);
+        }
     }
+
+    $mysqli->query("DELETE FROM certificates WHERE trainer_id = '$delete_id'");
+
+    $mysqli->query("DELETE FROM trainers WHERE id = '$delete_id'");
+
+    header("Location: trainer_list.php?deleted=1");
+    die();
 }
 
 if (isset($_GET['success'])) {
@@ -28,7 +31,7 @@ if (isset($_GET['error'])) {
     $error_msg = $_GET['error'];
 }
 
-$res = selectData('trainers', $mysqli, $column = "*", $where = "", $order = "ORDER BY id DESC");
+$res = selectData('trainers', $mysqli, "*", "", "ORDER BY id DESC");
 
 require "./layouts/header.php";
 ?>
@@ -67,72 +70,69 @@ require "./layouts/header.php";
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
-                                <th>Address</th>
-                                <th>Gender</th>
+                                <th>Certificates</th>
                                 <th>Created At</th>
-                                <th>Updated At</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if ($res && $res->num_rows > 0) {
-                                while ($row = $res->fetch_assoc()) { ?>
+                                while ($row = $res->fetch_assoc()) {
+                                    $cert_count = selectData('certificates', $mysqli, "COUNT(*) as count", "WHERE trainer_id = '" . $row['id'] . "'");
+                                    $count = $cert_count->fetch_assoc()['count'] ?? 0;
+                            ?>
                                     <tr>
                                         <td><?= htmlspecialchars($row['id']) ?></td>
                                         <td><?= htmlspecialchars($row['name']) ?></td>
                                         <td><?= htmlspecialchars($row['email']) ?></td>
                                         <td><?= htmlspecialchars($row['phone']) ?></td>
-                                        <td><?= htmlspecialchars($row['address']) ?></td>
-                                        <td><?= htmlspecialchars(ucfirst($row['gender'])) ?></td>
-                                        <td><?= date("Y/F/d h:i:s A", strtotime($row['created_at']))  ?></td>
-                                        <td><?= date("Y/m/d h:i:s A", strtotime($row['updated_at']))  ?></td>
                                         <td>
-                                            <a href="<?= $admin_base_url . "trainer_edit.php?id=" . $row['id'] ?>" class="btn btn-sm btn-primary">Edit</a>
+                                            <span class="badge bg-primary"><?= $count ?> Certificates</span>
+                                            <a href="<?= $admin_base_url ?>trainer_certificates.php?trainer_id=<?= $row['id'] ?>" class="btn btn-sm btn-info">Manage</a>
+                                        </td>
+                                        <td><?= date("Y/m/d h:i A", strtotime($row['created_at'])) ?></td>
+                                        <td>
+                                            <a href="<?= $admin_base_url ?>trainer_edit.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-primary">Edit</a>
                                             <button type="button" class="btn btn-sm btn-danger delete_btn" data-id="<?= htmlspecialchars($row['id']) ?>">Delete</button>
                                         </td>
                                     </tr>
                                 <?php }
                             } else { ?>
                                 <tr>
-                                    <td colspan="9" class="text-center">No trainers found.</td>
+                                    <td colspan="7" class="text-center">No trainers found.</td>
                                 </tr>
                             <?php } ?>
-
                         </tbody>
                     </table>
                 </div>
             </div>
-
         </div>
-
         <div class="content-backdrop fade"></div>
     </div>
-    <?php
-    require "./layouts/footer.php";
-    ?>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        $(document).ready(function() {
-            $('.delete_btn').click(function() {
-                const id = $(this).data('id')
+</div>
 
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to revert this!",
-                    icon: "question",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes, delete it!",
-                    cancelButtonText: "No, cancel!",
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = "trainer_list.php?delete_id=" + id
-                    }
-                });
+<?php
+require "./layouts/footer.php";
+?>
 
-            })
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).ready(function() {
+        $('.delete_btn').click(function() {
+            const id = $(this).data('id')
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel!",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "trainer_list.php?delete_id=" + id
+                }
+            });
         })
-    </script>
-    </body>
-
-    </html>
+    })
+</script>

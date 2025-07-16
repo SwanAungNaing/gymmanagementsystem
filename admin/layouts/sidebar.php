@@ -34,19 +34,19 @@
             href="#trainer"
             class="collapsed">
             <i class="fas fa-user-tie"></i>
-            <p>Trainer</p>
+            <p>Trainers</p>
             <span class="caret"></span>
           </a>
           <div class="collapse" id="trainer">
             <ul class="nav nav-collapse">
               <li>
                 <a href="trainer_create.php">
-                  <span class="sub-item">Trainer Create</span>
+                  <span class="sub-item">Trainers Create</span>
                 </a>
               </li>
               <li>
                 <a href="trainer_list.php">
-                  <span class="sub-item">Trainer List</span>
+                  <span class="sub-item">Trainer Lists</span>
                 </a>
               </li>
             </ul>
@@ -55,31 +55,31 @@
         </li>
 
         <!-- Certificate -->
-        <li class="nav-item active">
+        <!-- <li class="nav-item active">
           <a
             data-bs-toggle="collapse"
             href="#certificate"
             class="collapsed"
             aria-expanded="false">
             <i class="fa-solid fa-graduation-cap"></i>
-            <p>Certificate</p>
+            <p>Certificates</p>
             <span class="caret"></span>
           </a>
           <div class="collapse" id="certificate">
             <ul class="nav nav-collapse">
               <li>
                 <a href="certificate_create.php">
-                  <span class="sub-item">Certificate Create</span>
+                  <span class="sub-item">Certificates Create</span>
                 </a>
               </li>
               <li>
                 <a href="certificate_list.php">
-                  <span class="sub-item">Certificate List</span>
+                  <span class="sub-item">Certificate Lists</span>
                 </a>
               </li>
             </ul>
           </div>
-        </li>
+        </li> -->
 
         <!-- Service  -->
         <li class="nav-item active">
@@ -89,19 +89,19 @@
             class="collapsed"
             aria-expanded="false">
             <i class="fas fa-handshake"></i>
-            <p>Service</p>
+            <p>Services</p>
             <span class="caret"></span>
           </a>
           <div class="collapse" id="gym">
             <ul class="nav nav-collapse">
               <li>
                 <a href="service_create.php">
-                  <span class="sub-item">Service Create</span>
+                  <span class="sub-item">Services Create</span>
                 </a>
               </li>
               <li>
                 <a href="service_list.php">
-                  <span class="sub-item">Service List</span>
+                  <span class="sub-item">Service Lists</span>
                 </a>
               </li>
             </ul>
@@ -123,12 +123,12 @@
             <ul class="nav nav-collapse">
               <li>
                 <a href="member_create.php">
-                  <span class="sub-item">Member Create</span>
+                  <span class="sub-item">Members Create</span>
                 </a>
               </li>
               <li>
                 <a href="member_list.php">
-                  <span class="sub-item">Member List</span>
+                  <span class="sub-item">Member Lists</span>
                 </a>
               </li>
             </ul>
@@ -143,19 +143,19 @@
             class="collapsed"
             aria-expanded="false">
             <i class="fas fa-chalkboard-teacher"></i>
-            <p>Class</p>
+            <p>Classes</p>
             <span class="caret"></span>
           </a>
           <div class="collapse" id="class">
             <ul class="nav nav-collapse">
               <li>
                 <a href="class_create.php">
-                  <span class="sub-item">Class Create</span>
+                  <span class="sub-item">Classes Create</span>
                 </a>
               </li>
               <li>
                 <a href="class_list.php">
-                  <span class="sub-item">Class List</span>
+                  <span class="sub-item">Class Lists</span>
                 </a>
               </li>
             </ul>
@@ -170,19 +170,19 @@
             class="collapsed"
             aria-expanded="false">
             <i class="fas fa-users"></i>
-            <p>Class Member</p>
+            <p>Class Members</p>
             <span class="caret"></span>
           </a>
           <div class="collapse" id="cm">
             <ul class="nav nav-collapse">
               <li>
                 <a href="class_member_create.php">
-                  <span class="sub-item">Class Member Create</span>
+                  <span class="sub-item">Class Members Create</span>
                 </a>
               </li>
               <li>
                 <a href="class_member_list.php">
-                  <span class="sub-item">Class Member List</span>
+                  <span class="sub-item">Class Member Lists</span>
                 </a>
               </li>
             </ul>
@@ -198,19 +198,19 @@
             class="collapsed"
             aria-expanded="false">
             <i class="fas fa-credit-card"></i>
-            <p>Class Payment</p>
+            <p>Class Payments</p>
             <span class="caret"></span>
           </a>
           <div class="collapse" id="payment">
             <ul class="nav nav-collapse">
               <li>
                 <a href="class_payment_create.php">
-                  <span class="sub-item">Class Payment Create</span>
+                  <span class="sub-item">Class Payments Create</span>
                 </a>
               </li>
               <li>
                 <a href="class_payment_list.php">
-                  <span class="sub-item">Class Payment List</span>
+                  <span class="sub-item">Class Payment Lists</span>
                 </a>
               </li>
             </ul>
@@ -226,19 +226,19 @@
             class="collapsed"
             aria-expanded="false">
             <i class="fas fa-clipboard-check"></i>
-            <p>Attendance</p>
+            <p>Attendances</p>
             <span class="caret"></span>
           </a>
           <div class="collapse" id="attendance">
             <ul class="nav nav-collapse">
               <li>
                 <a href="attendance_create.php">
-                  <span class="sub-item">Attendance Create</span>
+                  <span class="sub-item">Attendances Create</span>
                 </a>
               </li>
               <li>
                 <a href="attendance_list.php">
-                  <span class="sub-item">Attendance List</span>
+                  <span class="sub-item">Attendance Lists</span>
                 </a>
               </li>
             </ul>
@@ -254,19 +254,19 @@
             class="collapsed"
             aria-expanded="false">
             <i class="fas fa-weight"></i>
-            <p>Member Weight</p>
+            <p>Member Weights</p>
             <span class="caret"></span>
           </a>
           <div class="collapse" id="weight">
             <ul class="nav nav-collapse">
               <li>
                 <a href="member_weight_create.php">
-                  <span class="sub-item">Member Weight Create</span>
+                  <span class="sub-item">Member Weights Create</span>
                 </a>
               </li>
               <li>
                 <a href="member_weight_list.php">
-                  <span class="sub-item">Member Weight List</span>
+                  <span class="sub-item">Member Weight Lists</span>
                 </a>
               </li>
             </ul>
@@ -281,19 +281,19 @@
             class="collapsed"
             aria-expanded="false">
             <i class="fas fa-tags"></i>
-            <p>Brand Name</p>
+            <p>Brand Names</p>
             <span class="caret"></span>
           </a>
           <div class="collapse" id="brand">
             <ul class="nav nav-collapse">
               <li>
                 <a href="brand_name_create.php">
-                  <span class="sub-item">Brand Name Create</span>
+                  <span class="sub-item">Brand Names Create</span>
                 </a>
               </li>
               <li>
                 <a href="brand_name_list.php">
-                  <span class="sub-item">Brand Name List</span>
+                  <span class="sub-item">Brand Name Lists</span>
                 </a>
               </li>
             </ul>
@@ -308,19 +308,19 @@
             class="collapsed"
             aria-expanded="false">
             <i class="fas fa-cogs"></i>
-            <p>Equipment Type</p>
+            <p>Equipment Types</p>
             <span class="caret"></span>
           </a>
           <div class="collapse" id="e_type">
             <ul class="nav nav-collapse">
               <li>
                 <a href="equipment_type_create.php">
-                  <span class="sub-item">Equipment Type Create</span>
+                  <span class="sub-item">Equipment Types Create</span>
                 </a>
               </li>
               <li>
                 <a href="equipment_type_list.php">
-                  <span class="sub-item">Equipment Type List</span>
+                  <span class="sub-item">Equipment Type Lists</span>
                 </a>
               </li>
             </ul>
@@ -336,19 +336,19 @@
             class="collapsed"
             aria-expanded="false">
             <i class="fas fa-dumbbell"></i>
-            <p>Equipment</p>
+            <p>Equipments</p>
             <span class="caret"></span>
           </a>
           <div class="collapse" id="equipment">
             <ul class="nav nav-collapse">
               <li>
                 <a href="equipment_create.php">
-                  <span class="sub-item">Equipment Create</span>
+                  <span class="sub-item">Equipments Create</span>
                 </a>
               </li>
               <li>
                 <a href="equipment_list.php">
-                  <span class="sub-item">Equipment List</span>
+                  <span class="sub-item">Equipment Lists</span>
                 </a>
               </li>
             </ul>
@@ -363,19 +363,19 @@
             class="collapsed"
             aria-expanded="false">
             <i class="fas fa-shopping-cart"></i>
-            <p>E-Sale Order</p>
+            <p>E-Sale Orders</p>
             <span class="caret"></span>
           </a>
           <div class="collapse" id="order">
             <ul class="nav nav-collapse">
               <li>
                 <a href="e_sale_order_create.php">
-                  <span class="sub-item">E-Sale Order Create</span>
+                  <span class="sub-item">E-Sale Orders Create</span>
                 </a>
               </li>
               <li>
                 <a href="e_sale_order_list.php">
-                  <span class="sub-item">E-Sale Order List</span>
+                  <span class="sub-item">E-Sale Order Lists</span>
                 </a>
               </li>
             </ul>
