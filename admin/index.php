@@ -1,8 +1,25 @@
 <?php
+require("../requires/db.php");
 include_once(__DIR__ . '/layouts/header.php');
+
+$trainer_count_query = "SELECT COUNT(*) AS total FROM trainers";
+$member_count_query = "SELECT COUNT(*) AS total FROM members";
+$class_payment_count_query = "SELECT COUNT(*) AS total FROM class_payment";
+$e_sale_order_count_query = "SELECT COUNT(*) AS total FROM esale_order";
+
+$trainer_result = $mysqli->query($trainer_count_query);
+$member_result = $mysqli->query($member_count_query);
+$class_payment_result = $mysqli->query($class_payment_count_query);
+$e_sale_order_result = $mysqli->query($e_sale_order_count_query);
+
+$trainer_count = $trainer_result->fetch_assoc()['total'];
+$member_count = $member_result->fetch_assoc()['total'];
+$class_payment_count = $class_payment_result->fetch_assoc()['total'];
+$e_sale_order_count = $e_sale_order_result->fetch_assoc()['total'];
+
 ?>
 
-<div style="overflow-y: auto; height:80vh;">
+<div style="overflow-y: auto; height:80vh;" class="bg-secondary">
   <div class="container">
     <div class="page-inner">
       <div
@@ -24,13 +41,15 @@ include_once(__DIR__ . '/layouts/header.php');
                 <div class="col-icon">
                   <div
                     class="icon-big text-center icon-primary bubble-shadow-small">
-                    <i class="fas fa-users"></i>
+                    <a href="./trainer_list.php">
+                      <i class="fas fa-users"></i>
+                    </a>
                   </div>
                 </div>
                 <div class="col col-stats ms-3 ms-sm-0">
                   <div class="numbers">
                     <p class="card-category">Trainers</p>
-                    <h4 class="card-title">1,294</h4>
+                    <h4 class="card-title"><?= $trainer_count ?></h4>
                   </div>
                 </div>
               </div>
@@ -44,12 +63,16 @@ include_once(__DIR__ . '/layouts/header.php');
                 <div class="col-icon">
                   <div
                     class="icon-big text-center icon-info bubble-shadow-small">
-                    <i class="fas fa-user-check"></i>
+                    <a href="./member_list.php">
+                      <i class="fas fa-user-check">
+                      </i>
+                    </a>
                   </div>
                 </div>
                 <div class="col col-stats ms-3 ms-sm-0">
                   <div class="numbers">
                     <p class="card-category">Members</p>
+                    <h4 class="card-title"><?= $member_count ?></h4>
                   </div>
                 </div>
               </div>
@@ -63,13 +86,15 @@ include_once(__DIR__ . '/layouts/header.php');
                 <div class="col-icon">
                   <div
                     class="icon-big text-center icon-success bubble-shadow-small">
-                    <i class="fas fa-luggage-cart"></i>
+                    <a href="./class_payment_list.php">
+                      <i class="fas fa-luggage-cart"></i>
+                    </a>
                   </div>
                 </div>
                 <div class="col col-stats ms-3 ms-sm-0">
                   <div class="numbers">
                     <p class="card-category">Class Payments</p>
-                    <h4 class="card-title">$ 1,345</h4>
+                    <h4 class="card-title"><?= $class_payment_count ?></h4>
                   </div>
                 </div>
               </div>
@@ -83,13 +108,15 @@ include_once(__DIR__ . '/layouts/header.php');
                 <div class="col-icon">
                   <div
                     class="icon-big text-center icon-secondary bubble-shadow-small">
-                    <i class="far fa-check-circle"></i>
+                    <a href="./e_sale_order_list.php">
+                      <i class="far fa-check-circle"></i>
+                    </a>
                   </div>
                 </div>
                 <div class="col col-stats ms-3 ms-sm-0">
                   <div class="numbers">
                     <p class="card-category">E_sale Orders</p>
-                    <h4 class="card-title">576</h4>
+                    <h4 class="card-title"><?= $e_sale_order_count ?></h4>
                   </div>
                 </div>
               </div>
@@ -97,7 +124,7 @@ include_once(__DIR__ . '/layouts/header.php');
           </div>
         </div>
       </div>
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-8">
           <div class="card card-round">
             <div class="card-header">
@@ -177,8 +204,8 @@ include_once(__DIR__ . '/layouts/header.php');
             </div>
           </div>
         </div>
-      </div>
-      <div class="row">
+      </div> -->
+      <!-- <div class="row">
         <div class="col-md-12">
           <div class="card card-round">
             <div class="card-header">
@@ -297,8 +324,8 @@ include_once(__DIR__ . '/layouts/header.php');
             </div>
           </div>
         </div>
-      </div>
-      <div class="row">
+      </div> -->
+      <!-- <div class="row">
         <div class="col-md-4">
           <div class="card card-round">
             <div class="card-body">
@@ -431,152 +458,7 @@ include_once(__DIR__ . '/layouts/header.php');
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-8">
-          <div class="card card-round">
-            <div class="card-header">
-              <div class="card-head-row card-tools-still-right">
-                <div class="card-title">Transaction History</div>
-                <div class="card-tools">
-                  <div class="dropdown">
-                    <button
-                      class="btn btn-icon btn-clean me-0"
-                      type="button"
-                      id="dropdownMenuButton"
-                      data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false">
-                      <i class="fas fa-ellipsis-h"></i>
-                    </button>
-                    <div
-                      class="dropdown-menu"
-                      aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card-body p-0">
-              <div class="table-responsive">
-                <!-- Projects table -->
-                <table class="table align-items-center mb-0">
-                  <thead class="thead-light">
-                    <tr>
-                      <th scope="col">Payment Number</th>
-                      <th scope="col" class="text-end">Date & Time</th>
-                      <th scope="col" class="text-end">Amount</th>
-                      <th scope="col" class="text-end">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">
-                        <button
-                          class="btn btn-icon btn-round btn-success btn-sm me-2">
-                          <i class="fa fa-check"></i>
-                        </button>
-                        Payment from #10231
-                      </th>
-                      <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                      <td class="text-end">$250.00</td>
-                      <td class="text-end">
-                        <span class="badge badge-success">Completed</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">
-                        <button
-                          class="btn btn-icon btn-round btn-success btn-sm me-2">
-                          <i class="fa fa-check"></i>
-                        </button>
-                        Payment from #10231
-                      </th>
-                      <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                      <td class="text-end">$250.00</td>
-                      <td class="text-end">
-                        <span class="badge badge-success">Completed</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">
-                        <button
-                          class="btn btn-icon btn-round btn-success btn-sm me-2">
-                          <i class="fa fa-check"></i>
-                        </button>
-                        Payment from #10231
-                      </th>
-                      <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                      <td class="text-end">$250.00</td>
-                      <td class="text-end">
-                        <span class="badge badge-success">Completed</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">
-                        <button
-                          class="btn btn-icon btn-round btn-success btn-sm me-2">
-                          <i class="fa fa-check"></i>
-                        </button>
-                        Payment from #10231
-                      </th>
-                      <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                      <td class="text-end">$250.00</td>
-                      <td class="text-end">
-                        <span class="badge badge-success">Completed</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">
-                        <button
-                          class="btn btn-icon btn-round btn-success btn-sm me-2">
-                          <i class="fa fa-check"></i>
-                        </button>
-                        Payment from #10231
-                      </th>
-                      <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                      <td class="text-end">$250.00</td>
-                      <td class="text-end">
-                        <span class="badge badge-success">Completed</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">
-                        <button
-                          class="btn btn-icon btn-round btn-success btn-sm me-2">
-                          <i class="fa fa-check"></i>
-                        </button>
-                        Payment from #10231
-                      </th>
-                      <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                      <td class="text-end">$250.00</td>
-                      <td class="text-end">
-                        <span class="badge badge-success">Completed</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th scope="row">
-                        <button
-                          class="btn btn-icon btn-round btn-success btn-sm me-2">
-                          <i class="fa fa-check"></i>
-                        </button>
-                        Payment from #10231
-                      </th>
-                      <td class="text-end">Mar 19, 2020, 2.45pm</td>
-                      <td class="text-end">$250.00</td>
-                      <td class="text-end">
-                        <span class="badge badge-success">Completed</span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        </div> -->
     </div>
   </div>
 </div>
