@@ -9,11 +9,6 @@ $member_id = '';
 $member_id_error = '';
 $class_id = '';
 $class_id_error = '';
-$start_date = '';
-$start_date_error = '';
-$end_date = '';
-$end_date_error = '';
-$class_member_pk_id = '';
 
 // Fetch members for dropdown
 $members_res = selectData('members', $mysqli, 'id, name', '', 'ORDER BY name ASC');
@@ -54,8 +49,6 @@ if (isset($_GET['id'])) {
         $class_member_data = $class_member_res->fetch_assoc();
         $member_id = $class_member_data['member_id'];
         $class_id = $class_member_data['class_id'];
-        $start_date = $class_member_data['start_date'];
-        $end_date = $class_member_data['end_date'];
     } else {
         $url = $admin_base_url . "class_member_list.php?error=Class Member Not Found";
         header("Location: $url");
@@ -72,8 +65,6 @@ if (isset($_POST['form_sub']) && $_POST['form_sub'] == 1) {
     // Safely retrieve POST variables
     $member_id = $_POST['member_id'] ?? '';
     $class_id = $_POST['class_id'] ?? '';
-    $start_date = $_POST['start_date'] ?? '';
-    $end_date = $_POST['end_date'] ?? '';
     $class_member_pk_id = $_POST['class_member_pk_id'] ?? '';
 
     // Validation for Member
@@ -88,27 +79,10 @@ if (isset($_POST['form_sub']) && $_POST['form_sub'] == 1) {
         $class_id_error = "Please select a Class.";
     }
 
-    // Validation for Start Date
-    if (empty($start_date)) {
-        $error = true;
-        $start_date_error = "Please fill Start Date.";
-    }
-
-    // Validation for End Date
-    if (empty($end_date)) {
-        $error = true;
-        $end_date_error = "Please fill End Date.";
-    } elseif (!empty($start_date) && strtotime($end_date) <= strtotime($start_date)) {
-        $error = true;
-        $end_date_error = "End Date must be after Start Date.";
-    }
-
     if (!$error) {
         $data = [
             'member_id'   => $mysqli->real_escape_string($member_id),
             'class_id'    => $mysqli->real_escape_string($class_id),
-            'start_date'  => $mysqli->real_escape_string($start_date),
-            'end_date'    => $mysqli->real_escape_string($end_date),
             'updated_at'  => date('Y-m-d H:i:s')
         ];
 
@@ -167,20 +141,6 @@ require "./layouts/header.php";
                                     </select>
                                     <?php if ($class_id_error) { ?>
                                         <span class="text-danger"><?= htmlspecialchars($class_id_error) ?></span>
-                                    <?php } ?>
-                                </div>
-                                <div class="form-group mb-4">
-                                    <label for="start_date">Start Date</label>
-                                    <input type="date" name="start_date" id="start_date" class="form-control" value="<?= htmlspecialchars($start_date) ?>" />
-                                    <?php if ($start_date_error) { ?>
-                                        <span class="text-danger"><?= htmlspecialchars($start_date_error) ?></span>
-                                    <?php } ?>
-                                </div>
-                                <div class="form-group mb-4">
-                                    <label for="end_date">End Date</label>
-                                    <input type="date" name="end_date" id="end_date" class="form-control" value="<?= htmlspecialchars($end_date) ?>" />
-                                    <?php if ($end_date_error) { ?>
-                                        <span class="text-danger"><?= htmlspecialchars($end_date_error) ?></span>
                                     <?php } ?>
                                 </div>
 
