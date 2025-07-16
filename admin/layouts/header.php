@@ -1,3 +1,6 @@
+<?php
+require("../auth/check_auth.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +14,6 @@
     rel="icon"
     href="assets/img/kaiadmin/favicon.ico"
     type="image/x-icon" />
-
 
   <!-- Fonts and icons -->
   <!-- Font Awesome CDN (No login required) -->
