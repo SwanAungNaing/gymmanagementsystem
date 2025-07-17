@@ -1,4 +1,3 @@
-Zayar Maung, [7/8/2025 3:38 PM]
 <?php
 
 require '../requires/common.php';

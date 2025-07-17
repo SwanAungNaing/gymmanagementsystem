@@ -20,7 +20,7 @@ $e_sale_order_count = $e_sale_order_result->fetch_assoc()['total'];
 
 ?>
 
-<div style="overflow-y: auto; height:80vh;" class="bg-secondary">
+<div style="overflow-y: auto; height:80vh;" class="bg-light">
   <div class="container">
     <div class="page-inner">
       <div
