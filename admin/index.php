@@ -125,7 +125,7 @@ $e_sale_order_count = $e_sale_order_result->fetch_assoc()['total'];
           </div>
         </div>
       </div>
-      <!-- <div class="row">
+      <div class="row">
         <div class="col-md-8">
           <div class="card card-round">
             <div class="card-header">
@@ -205,8 +205,8 @@ $e_sale_order_count = $e_sale_order_result->fetch_assoc()['total'];
             </div>
           </div>
         </div>
-      </div> -->
-      <!-- <div class="row">
+      </div>
+      <div class="row">
         <div class="col-md-12">
           <div class="card card-round">
             <div class="card-header">
@@ -325,8 +325,8 @@ $e_sale_order_count = $e_sale_order_result->fetch_assoc()['total'];
             </div>
           </div>
         </div>
-      </div> -->
-      <!-- <div class="row">
+      </div>
+      <div class="row">
         <div class="col-md-4">
           <div class="card card-round">
             <div class="card-body">
@@ -459,9 +459,9 @@ $e_sale_order_count = $e_sale_order_result->fetch_assoc()['total'];
               </div>
             </div>
           </div>
-        </div> -->
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-<?php include_once(__DIR__ . '/layouts/footer.php'); ?>
+  <?php include_once(__DIR__ . '/layouts/footer.php'); ?>
