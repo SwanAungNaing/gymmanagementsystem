@@ -86,7 +86,7 @@ require "./layouts/header.php";
                                         <td><?= htmlspecialchars($row['phone']) ?></td>
                                         <td><?= htmlspecialchars($row['address']) ?></td>
                                         <td><?= htmlspecialchars($row['gender']) ?></td>
-                                        <td><?= htmlspecialchars($row['original_weight']) ?></td>
+                                        <td><?= htmlspecialchars($row['original_weight']) ?> Kg</td>
                                         <td><?= date("Y/F/d h:i:s A", strtotime($row['created_at'])) ?></td>
                                         <td><?= date("Y/m/d h:i:s A", strtotime($row['updated_at'])) ?></td>
                                         <td>
