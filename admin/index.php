@@ -3,465 +3,388 @@ require("../auth/check_auth.php");
 require("../requires/db.php");
 include_once(__DIR__ . '/layouts/header.php');
 
-$trainer_count_query = "SELECT COUNT(*) AS total FROM trainers";
-$member_count_query = "SELECT COUNT(*) AS total FROM members";
-$class_payment_count_query = "SELECT COUNT(*) AS total FROM class_payment";
-$e_sale_order_count_query = "SELECT COUNT(*) AS total FROM esale_order";
+// Filters
+$start_date = isset($_GET['start_date']) ? $_GET['start_date'] : date('Y-m-d', strtotime('-30 days'));
+$end_date = isset($_GET['end_date']) ? $_GET['end_date'] : date('Y-m-d');
+$status_filter = isset($_GET['payment_status']) ? $_GET['payment_status'] : 'all';
 
-$trainer_result = $mysqli->query($trainer_count_query);
+// Members (filtered)
+$member_count_query = "SELECT COUNT(*) AS total FROM members WHERE DATE(created_at) BETWEEN '$start_date' AND '$end_date'";
 $member_result = $mysqli->query($member_count_query);
-$class_payment_result = $mysqli->query($class_payment_count_query);
-$e_sale_order_result = $mysqli->query($e_sale_order_count_query);
-
-$trainer_count = $trainer_result->fetch_assoc()['total'];
 $member_count = $member_result->fetch_assoc()['total'];
-$class_payment_count = $class_payment_result->fetch_assoc()['total'];
-$e_sale_order_count = $e_sale_order_result->fetch_assoc()['total'];
+
+// Trainers (all)
+$trainer_count_query = "SELECT COUNT(*) AS total FROM trainers";
+$trainer_result = $mysqli->query($trainer_count_query);
+$trainer_count = $trainer_result->fetch_assoc()['total'];
+
+// Classes (filtered)
+$class_count_query = "SELECT COUNT(*) AS total FROM classes WHERE start_date BETWEEN '$start_date' AND '$end_date'";
+$class_result = $mysqli->query($class_count_query);
+$class_count = $class_result->fetch_assoc()['total'];
+
+// Equipment (all)
+$equipment_count_query = "SELECT COUNT(*) AS total FROM equipments";
+$equipment_result = $mysqli->query($equipment_count_query);
+$equipment_count = $equipment_result->fetch_assoc()['total'];
+
+// Class Payments (filtered by date and status)
+$class_payment_total_query = "SELECT SUM(CAST(total_amount AS DECIMAL(10,2))) AS total FROM class_payment WHERE DATE(order_date) BETWEEN '$start_date' AND '$end_date'";
+if ($status_filter == 'paid') {
+  $class_payment_total_query .= " AND status = 'paid'";
+} elseif ($status_filter == 'pending') {
+  $class_payment_total_query .= " AND status = 'pending'";
+}
+$class_payment_total_result = $mysqli->query($class_payment_total_query);
+$class_payment_total = $class_payment_total_result->fetch_assoc()['total'] ?? 0;
+
+// E_sale Orders (filtered by date)
+$e_sale_order_total_query = "SELECT SUM(CAST(total_amount AS DECIMAL(10,2))) AS total FROM esale_order WHERE DATE(order_date) BETWEEN '$start_date' AND '$end_date'";
+$e_sale_order_total_result = $mysqli->query($e_sale_order_total_query);
+$e_sale_order_total = $e_sale_order_total_result->fetch_assoc()['total'] ?? 0;
+
+// Recent Class Payments (filtered)
+$status_sql = '';
+if ($status_filter == 'paid') {
+  $status_sql = " AND cp.status = 'paid'";
+} elseif ($status_filter == 'pending') {
+  $status_sql = " AND cp.status = 'pending'";
+}
+$recent_payments_query = "SELECT 
+    cp.id,
+    cp.total_amount,
+    cp.order_date,
+    cp.status,
+    m.name as member_name,
+    c.batch_name,
+    (SELECT COUNT(*) 
+     FROM class_payment cp2 
+     WHERE cp2.class_member_id = cp.class_member_id 
+     AND DATE(cp2.order_date) <= DATE(cp.order_date)) as payment_number
+FROM class_payment cp 
+JOIN class_members cm ON cp.class_member_id = cm.id 
+JOIN members m ON cm.member_id = m.id 
+JOIN classes c ON cm.class_id = c.id 
+WHERE DATE(cp.order_date) BETWEEN '$start_date' AND '$end_date' $status_sql
+ORDER BY cp.order_date DESC 
+LIMIT 10";
+$recent_payments_result = $mysqli->query($recent_payments_query);
+
+// Recent E_sale Orders (filtered)
+$recent_orders_query = "SELECT eo.*, m.name as member_name, e.price, e.quantity as eq_qty FROM esale_order eo JOIN members m ON eo.member_id = m.id JOIN equipments e ON eo.equipment_id = e.id WHERE DATE(eo.order_date) BETWEEN '$start_date' AND '$end_date' ORDER BY eo.order_date DESC LIMIT 10";
+$recent_orders_result = $mysqli->query($recent_orders_query);
+
+// Recent Members (filtered)
+$recent_members_query = "SELECT m.*, w.curr_weight FROM members m LEFT JOIN member_weight w ON m.id = w.member_id WHERE DATE(m.created_at) BETWEEN '$start_date' AND '$end_date' ORDER BY m.created_at DESC LIMIT 5";
+$recent_members_result = $mysqli->query($recent_members_query);
+
+// --- Chart Data Queries ---
+// Class Payments daily totals
+$class_payments_daily = [];
+$class_payments_labels = [];
+$cp_chart_status_sql = '';
+if ($status_filter == 'paid') {
+  $cp_chart_status_sql = " AND status = 'paid'";
+} elseif ($status_filter == 'pending') {
+  $cp_chart_status_sql = " AND status = 'pending'";
+}
+$cp_chart_query = "SELECT DATE(order_date) as day, SUM(CAST(total_amount AS DECIMAL(10,2))) as total FROM class_payment WHERE DATE(order_date) BETWEEN '$start_date' AND '$end_date' $cp_chart_status_sql GROUP BY day ORDER BY day ASC";
+$cp_chart_result = $mysqli->query($cp_chart_query);
+while ($row = $cp_chart_result->fetch_assoc()) {
+  $class_payments_labels[] = $row['day'];
+  $class_payments_daily[] = (float)$row['total'];
+}
+// E_sale Orders daily totals
+$esale_orders_daily = [];
+$esale_orders_labels = [];
+$es_chart_query = "SELECT DATE(order_date) as day, SUM(CAST(total_amount AS DECIMAL(10,2))) as total FROM esale_order WHERE DATE(order_date) BETWEEN '$start_date' AND '$end_date' GROUP BY day ORDER BY day ASC";
+$es_chart_result = $mysqli->query($es_chart_query);
+while ($row = $es_chart_result->fetch_assoc()) {
+  $esale_orders_labels[] = $row['day'];
+  $esale_orders_daily[] = (float)$row['total'];
+}
 
 ?>
-
 <div style="overflow-y: auto; height:80vh;" class="bg-light">
-  <div class="container">
+  <div class="container-fluid">
     <div class="page-inner">
-      <div
-        class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
-        <div>
-          <h3 class="fw-bold mb-3">Admin Dashboard</h3>
-          <h6 class="op-7 mb-2">Gym Management System</h6>
-        </div>
-        <div class="ms-md-auto py-2 py-md-0">
-          <a href="./class_payment_list.php" class="btn btn-label-info btn-round me-2">Class Payment</a>
-          <a href="./member_list.php" class="btn btn-primary btn-round">Add New Member</a>
+      <div class="row mb-3 bg-white pt-3 pb-2">
+        <div class="col-12">
+          <form method="GET" class="row g-2 align-items-end">
+            <div class="col-md-3">
+              <label for="start_date" class="form-label">Start Date</label>
+              <input type="date" class="form-control" id="start_date" name="start_date" value="<?= htmlspecialchars($start_date) ?>">
+            </div>
+            <div class="col-md-3">
+              <label for="end_date" class="form-label">End Date</label>
+              <input type="date" class="form-control" id="end_date" name="end_date" value="<?= htmlspecialchars($end_date) ?>">
+            </div>
+            <div class="col-md-3">
+              <label for="payment_status" class="form-label">Class Payment Status</label>
+              <select class="form-select" id="payment_status" name="payment_status">
+                <option value="all" <?= $status_filter == 'all' ? ' selected' : '' ?>>All</option>
+                <option value="paid" <?= $status_filter == 'paid' ? ' selected' : '' ?>>Paid</option>
+                <option value="pending" <?= $status_filter == 'pending' ? ' selected' : '' ?>>Pending</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <button type="submit" class="btn btn-primary w-100">Apply Filter</button>
+            </div>
+          </form>
         </div>
       </div>
-      <div class="row">
-        <div class="col-sm-6 col-md-3">
-          <div class="card card-stats card-round">
+
+      <div class="row g-3 mb-4">
+        <div class="col-lg-2 col-md-3 col-sm-4 col-12">
+          <div class="card text-center shadow-sm">
             <div class="card-body">
-              <div class="row align-items-center">
-                <div class="col-icon">
-                  <div
-                    class="icon-big text-center icon-primary bubble-shadow-small">
-                    <a href="./trainer_list.php">
-                      <i class="fas fa-users"></i>
-                    </a>
-                  </div>
-                </div>
-                <div class="col col-stats ms-3 ms-sm-0">
-                  <div class="numbers">
-                    <p class="card-category">Trainers</p>
-                    <h4 class="card-title"><?= $trainer_count ?></h4>
-                  </div>
-                </div>
-              </div>
+              <div class="mb-2"><i class="fas fa-users fa-2x text-primary"></i></div>
+              <h6 class="card-title">Members</h6>
+              <h3><?= $member_count ?></h3>
             </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-3">
-          <div class="card card-stats card-round">
+        <div class="col-lg-2 col-md-3 col-sm-4 col-12">
+          <div class="card text-center shadow-sm">
             <div class="card-body">
-              <div class="row align-items-center">
-                <div class="col-icon">
-                  <div
-                    class="icon-big text-center icon-info bubble-shadow-small">
-                    <a href="./member_list.php">
-                      <i class="fas fa-user-check">
-                      </i>
-                    </a>
-                  </div>
-                </div>
-                <div class="col col-stats ms-3 ms-sm-0">
-                  <div class="numbers">
-                    <p class="card-category">Members</p>
-                    <h4 class="card-title"><?= $member_count ?></h4>
-                  </div>
-                </div>
-              </div>
+              <div class="mb-2"><i class="fas fa-user-tie fa-2x text-info"></i></div>
+              <h6 class="card-title">Trainers</h6>
+              <h3><?= $trainer_count ?></h3>
             </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-3">
-          <div class="card card-stats card-round">
+        <div class="col-lg-2 col-md-3 col-sm-4 col-12">
+          <div class="card text-center shadow-sm">
             <div class="card-body">
-              <div class="row align-items-center">
-                <div class="col-icon">
-                  <div
-                    class="icon-big text-center icon-success bubble-shadow-small">
-                    <a href="./class_payment_list.php">
-                      <i class="fas fa-luggage-cart"></i>
-                    </a>
-                  </div>
-                </div>
-                <div class="col col-stats ms-3 ms-sm-0">
-                  <div class="numbers">
-                    <p class="card-category">Class Payments</p>
-                    <h4 class="card-title"><?= $class_payment_count ?></h4>
-                  </div>
-                </div>
-              </div>
+              <div class="mb-2"><i class="fas fa-calendar-check fa-2x text-warning"></i></div>
+              <h6 class="card-title">Classes</h6>
+              <h3><?= $class_count ?></h3>
             </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-3">
-          <div class="card card-stats card-round">
+        <div class="col-lg-2 col-md-3 col-sm-4 col-12">
+          <div class="card text-center shadow-sm">
             <div class="card-body">
-              <div class="row align-items-center">
-                <div class="col-icon">
-                  <div
-                    class="icon-big text-center icon-secondary bubble-shadow-small">
-                    <a href="./e_sale_order_list.php">
-                      <i class="far fa-check-circle"></i>
-                    </a>
-                  </div>
-                </div>
-                <div class="col col-stats ms-3 ms-sm-0">
-                  <div class="numbers">
-                    <p class="card-category">E_sale Orders</p>
-                    <h4 class="card-title"><?= $e_sale_order_count ?></h4>
-                  </div>
-                </div>
-              </div>
+              <div class="mb-2"><i class="fas fa-dumbbell fa-2x text-success"></i></div>
+              <h6 class="card-title">Equipment</h6>
+              <h3><?= $equipment_count ?></h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-4 col-12">
+          <div class="card text-center shadow-sm">
+            <div class="card-body">
+              <div class="mb-2"><i class="fas fa-money-bill-wave fa-2x text-success"></i></div>
+              <h6 class="card-title">Class Payments</h6>
+              <h3 class="text-success">$<?= number_format($class_payment_total, 0) ?></h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-3 col-sm-4 col-12">
+          <div class="card text-center shadow-sm">
+            <div class="card-body">
+              <div class="mb-2"><i class="fas fa-shopping-cart fa-2x text-secondary"></i></div>
+              <h6 class="card-title">E_sale Orders</h6>
+              <h3 class="text-secondary">$<?= number_format($e_sale_order_total, 0) ?></h3>
             </div>
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-8">
-          <div class="card card-round">
-            <div class="card-header">
-              <div class="card-head-row">
-                <div class="card-title">User Statistics</div>
-                <div class="card-tools">
-                  <a
-                    href="#"
-                    class="btn btn-label-success btn-round btn-sm me-2">
-                    <span class="btn-label">
-                      <i class="fa fa-pencil"></i>
-                    </span>
-                    Export
-                  </a>
-                  <a href="#" class="btn btn-label-info btn-round btn-sm">
-                    <span class="btn-label">
-                      <i class="fa fa-print"></i>
-                    </span>
-                    Print
-                  </a>
-                </div>
-              </div>
-            </div>
+      <div class="row mb-4">
+        <div class="col-lg-6 mb-3">
+          <div class="card h-100">
+            <div class="card-header bg-light"><strong>Class Payments (Daily)</strong></div>
             <div class="card-body">
-              <div class="chart-container" style="min-height: 375px">
-                <canvas id="statisticsChart"></canvas>
-              </div>
-              <div id="myChartLegend"></div>
+              <div id="classPaymentsChart" style="height:320px;"></div>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card card-primary card-round">
-            <div class="card-header">
-              <div class="card-head-row">
-                <div class="card-title">Daily Sales</div>
-                <div class="card-tools">
-                  <div class="dropdown">
-                    <button
-                      class="btn btn-sm btn-label-light dropdown-toggle"
-                      type="button"
-                      id="dropdownMenuButton"
-                      data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false">
-                      Export
-                    </button>
-                    <div
-                      class="dropdown-menu"
-                      aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <a class="dropdown-item" href="#">Something else here</a>
+        <div class="col-lg-6 mb-3">
+          <div class="card h-100">
+            <div class="card-header bg-light"><strong>E_sale Orders (Daily)</strong></div>
+            <div class="card-body">
+              <div id="esaleOrdersChart" style="height:320px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header bg-light">
+              <strong>Recent Class Payments</strong>
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-sm mb-0">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Member</th>
+                      <th>Class</th>
+                      <th>Payment #</th>
+                      <th>Amount</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php while ($payment = $recent_payments_result->fetch_assoc()): ?>
+                      <tr>
+                        <td><?= htmlspecialchars($payment['member_name']) ?></td>
+                        <td><?= htmlspecialchars($payment['batch_name']) ?></td>
+                        <td><?= $payment['payment_number'] ?></td>
+                        <td>$<?= number_format($payment['total_amount'], 2) ?></td>
+                        <td><?= date('Y-m-d', strtotime($payment['order_date'])) ?></td>
+                        <td><span class="badge bg-<?= $payment['status'] == 'paid' ? 'success' : 'warning' ?>"><?= ucfirst($payment['status']) ?></span></td>
+                      </tr>
+                    <?php endwhile; ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card h-100">
+            <div class="card-header bg-light">
+              <strong>Recent E_sale Orders</strong>
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table table-sm mb-0">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Member</th>
+                      <th>Equipment</th>
+                      <th>Qty</th>
+                      <th>Amount</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php while ($order = $recent_orders_result->fetch_assoc()): ?>
+                      <tr>
+                        <td><?= htmlspecialchars($order['member_name']) ?></td>
+                        <td><?= htmlspecialchars($order['equipment_id']) ?></td>
+                        <td><?= $order['quantity'] ?></td>
+                        <td>$<?= number_format($order['total_amount'], 2) ?></td>
+                        <td><?= date('Y-m-d', strtotime($order['order_date'])) ?></td>
+                      </tr>
+                    <?php endwhile; ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row g-3 mt-3">
+        <div class="col-lg-4">
+          <div class="card h-100">
+            <div class="card-header bg-light">
+              <strong>Recent Members</strong>
+            </div>
+            <div class="card-body p-0">
+              <ul class="list-group list-group-flush">
+                <?php while ($member = $recent_members_result->fetch_assoc()): ?>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                      <strong><?= htmlspecialchars($member['name']) ?></strong><br>
+                      <small>Joined: <?= date('Y-m-d', strtotime($member['created_at'])) ?></small><br>
+                      <small>Original Weight: <?= $member['original_weight'] ?> kg</small>
+                      <?php if ($member['curr_weight']): ?>
+                        <br><small>Current Weight: <?= $member['curr_weight'] ?> kg</small>
+                      <?php endif; ?>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-category">March 25 - April 02</div>
-            </div>
-            <div class="card-body pb-0">
-              <div class="mb-4 mt-2">
-                <h1>$4,578.58</h1>
-              </div>
-              <div class="pull-in">
-                <canvas id="dailySalesChart"></canvas>
-              </div>
-            </div>
-          </div>
-          <div class="card card-round">
-            <div class="card-body pb-0">
-              <div class="h1 fw-bold float-end text-primary">+5%</div>
-              <h2 class="mb-2">17</h2>
-              <p class="text-muted">Users online</p>
-              <div class="pull-in sparkline-fix">
-                <div id="lineChart"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card card-round">
-            <div class="card-header">
-              <div class="card-head-row card-tools-still-right">
-                <h4 class="card-title">Users Geolocation</h4>
-                <div class="card-tools">
-                  <button
-                    class="btn btn-icon btn-link btn-primary btn-xs">
-                    <span class="fa fa-angle-down"></span>
-                  </button>
-                  <button
-                    class="btn btn-icon btn-link btn-primary btn-xs btn-refresh-card">
-                    <span class="fa fa-sync-alt"></span>
-                  </button>
-                  <button
-                    class="btn btn-icon btn-link btn-primary btn-xs">
-                    <span class="fa fa-times"></span>
-                  </button>
-                </div>
-              </div>
-              <p class="card-category">
-                Map of the distribution of users around the world
-              </p>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="table-responsive table-hover table-sales">
-                    <table class="table">
-                      <tbody>
-                        <tr>
-                          <td>
-                            <div class="flag">
-                              <img
-                                src="assets/img/flags/id.png"
-                                alt="indonesia" />
-                            </div>
-                          </td>
-                          <td>Indonesia</td>
-                          <td class="text-end">2.320</td>
-                          <td class="text-end">42.18%</td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="flag">
-                              <img
-                                src="assets/img/flags/us.png"
-                                alt="united states" />
-                            </div>
-                          </td>
-                          <td>USA</td>
-                          <td class="text-end">240</td>
-                          <td class="text-end">4.36%</td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="flag">
-                              <img
-                                src="assets/img/flags/au.png"
-                                alt="australia" />
-                            </div>
-                          </td>
-                          <td>Australia</td>
-                          <td class="text-end">119</td>
-                          <td class="text-end">2.16%</td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="flag">
-                              <img
-                                src="assets/img/flags/ru.png"
-                                alt="russia" />
-                            </div>
-                          </td>
-                          <td>Russia</td>
-                          <td class="text-end">1.081</td>
-                          <td class="text-end">19.65%</td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="flag">
-                              <img
-                                src="assets/img/flags/cn.png"
-                                alt="china" />
-                            </div>
-                          </td>
-                          <td>China</td>
-                          <td class="text-end">1.100</td>
-                          <td class="text-end">20%</td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <div class="flag">
-                              <img
-                                src="assets/img/flags/br.png"
-                                alt="brazil" />
-                            </div>
-                          </td>
-                          <td>Brasil</td>
-                          <td class="text-end">640</td>
-                          <td class="text-end">11.63%</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="mapcontainer">
-                    <div
-                      id="world-map"
-                      class="w-100"
-                      style="height: 300px"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-4">
-          <div class="card card-round">
-            <div class="card-body">
-              <div class="card-head-row card-tools-still-right">
-                <div class="card-title">New Customers</div>
-                <div class="card-tools">
-                  <div class="dropdown">
-                    <button
-                      class="btn btn-icon btn-clean me-0"
-                      type="button"
-                      id="dropdownMenuButton"
-                      data-bs-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false">
-                      <i class="fas fa-ellipsis-h"></i>
-                    </button>
-                    <div
-                      class="dropdown-menu"
-                      aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-list py-4">
-                <div class="item-list">
-                  <div class="avatar">
-                    <img
-                      src="assets/img/jm_denis.jpg"
-                      alt="..."
-                      class="avatar-img rounded-circle" />
-                  </div>
-                  <div class="info-user ms-3">
-                    <div class="username">Jimmy Denis</div>
-                    <div class="status">Graphic Designer</div>
-                  </div>
-                  <button class="btn btn-icon btn-link op-8 me-1">
-                    <i class="far fa-envelope"></i>
-                  </button>
-                  <button class="btn btn-icon btn-link btn-danger op-8">
-                    <i class="fas fa-ban"></i>
-                  </button>
-                </div>
-                <div class="item-list">
-                  <div class="avatar">
-                    <span
-                      class="avatar-title rounded-circle border border-white">CF</span>
-                  </div>
-                  <div class="info-user ms-3">
-                    <div class="username">Chandra Felix</div>
-                    <div class="status">Sales Promotion</div>
-                  </div>
-                  <button class="btn btn-icon btn-link op-8 me-1">
-                    <i class="far fa-envelope"></i>
-                  </button>
-                  <button class="btn btn-icon btn-link btn-danger op-8">
-                    <i class="fas fa-ban"></i>
-                  </button>
-                </div>
-                <div class="item-list">
-                  <div class="avatar">
-                    <img
-                      src="assets/img/talha.jpg"
-                      alt="..."
-                      class="avatar-img rounded-circle" />
-                  </div>
-                  <div class="info-user ms-3">
-                    <div class="username">Talha</div>
-                    <div class="status">Front End Designer</div>
-                  </div>
-                  <button class="btn btn-icon btn-link op-8 me-1">
-                    <i class="far fa-envelope"></i>
-                  </button>
-                  <button class="btn btn-icon btn-link btn-danger op-8">
-                    <i class="fas fa-ban"></i>
-                  </button>
-                </div>
-                <div class="item-list">
-                  <div class="avatar">
-                    <img
-                      src="assets/img/chadengle.jpg"
-                      alt="..."
-                      class="avatar-img rounded-circle" />
-                  </div>
-                  <div class="info-user ms-3">
-                    <div class="username">Chad</div>
-                    <div class="status">CEO Zeleaf</div>
-                  </div>
-                  <button class="btn btn-icon btn-link op-8 me-1">
-                    <i class="far fa-envelope"></i>
-                  </button>
-                  <button class="btn btn-icon btn-link btn-danger op-8">
-                    <i class="fas fa-ban"></i>
-                  </button>
-                </div>
-                <div class="item-list">
-                  <div class="avatar">
-                    <span
-                      class="avatar-title rounded-circle border border-white bg-primary">H</span>
-                  </div>
-                  <div class="info-user ms-3">
-                    <div class="username">Hizrian</div>
-                    <div class="status">Web Designer</div>
-                  </div>
-                  <button class="btn btn-icon btn-link op-8 me-1">
-                    <i class="far fa-envelope"></i>
-                  </button>
-                  <button class="btn btn-icon btn-link btn-danger op-8">
-                    <i class="fas fa-ban"></i>
-                  </button>
-                </div>
-                <div class="item-list">
-                  <div class="avatar">
-                    <span
-                      class="avatar-title rounded-circle border border-white bg-secondary">F</span>
-                  </div>
-                  <div class="info-user ms-3">
-                    <div class="username">Farrah</div>
-                    <div class="status">Marketing</div>
-                  </div>
-                  <button class="btn btn-icon btn-link op-8 me-1">
-                    <i class="far fa-envelope"></i>
-                  </button>
-                  <button class="btn btn-icon btn-link btn-danger op-8">
-                    <i class="fas fa-ban"></i>
-                  </button>
-                </div>
-              </div>
+                  </li>
+                <?php endwhile; ?>
+              </ul>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <?php include_once(__DIR__ . '/layouts/footer.php'); ?>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<script>
+  const classPaymentsLabels = <?= json_encode($class_payments_labels) ?>;
+  const classPaymentsData = <?= json_encode($class_payments_daily) ?>;
+  const esaleOrdersLabels = <?= json_encode($esale_orders_labels) ?>;
+  const esaleOrdersData = <?= json_encode($esale_orders_daily) ?>;
+  // Class Payments Chart
+  var cpChart = echarts.init(document.getElementById('classPaymentsChart'));
+  cpChart.setOption({
+    tooltip: {
+      trigger: 'axis'
+    },
+    xAxis: {
+      type: 'category',
+      data: classPaymentsLabels
+    },
+    yAxis: {
+      type: 'value',
+      name: 'Amount(MMK)',
+      axisLabel: {
+        formatter: function(value) {
+          return value.toLocaleString('en-US');
+        }
+      }
+    },
+    series: [{
+      data: classPaymentsData,
+      type: 'line',
+      smooth: true,
+      color: '#28a745',
+      name: 'Class Payments',
+      areaStyle: {}
+    }],
+    grid: {
+      left: 70,
+      right: 20,
+      bottom: 40,
+      top: 40
+    }
+  });
+  // E_sale Orders Chart
+  var esChart = echarts.init(document.getElementById('esaleOrdersChart'));
+  esChart.setOption({
+    tooltip: {
+      trigger: 'axis'
+    },
+    xAxis: {
+      type: 'category',
+      data: esaleOrdersLabels
+    },
+    yAxis: {
+      type: 'value',
+      name: 'Amount(MMK)',
+      axisLabel: {
+        formatter: function(value) {
+          return value.toLocaleString('en-US');
+        }
+      }
+    },
+    series: [{
+      data: esaleOrdersData,
+      type: 'line',
+      smooth: true,
+      color: '#007bff',
+      name: 'E_sale Orders',
+      areaStyle: {}
+    }],
+    grid: {
+      left: 70,
+      right: 20,
+      bottom: 40,
+      top: 40
+    }
+  });
+  window.addEventListener('resize', function() {
+    cpChart.resize();
+    esChart.resize();
+  });
+</script>
+
+<?php include_once(__DIR__ . '/layouts/footer.php'); ?>

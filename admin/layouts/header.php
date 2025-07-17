@@ -42,9 +42,9 @@ require("../auth/check_auth.php");
   </script>
 
   <!-- CSS Files -->
-  <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="assets/css/plugins.min.css" />
-  <link rel="stylesheet" href="assets/css/kaiadmin.min.css" />
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css?v=<?= date('Ymd_His') ?>" />
+  <link rel="stylesheet" href="assets/css/plugins.min.css?v=<?= date('Ymd_His') ?>" />
+  <link rel="stylesheet" href="assets/css/kaiadmin.css?v=<?= date('Ymd_His') ?>" />
 
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link rel="stylesheet" href="assets/css/demo.css" />
