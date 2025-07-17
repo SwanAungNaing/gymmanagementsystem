@@ -20,7 +20,7 @@ $e_sale_order_count = $e_sale_order_result->fetch_assoc()['total'];
 
 ?>
 
-<div style="overflow-y: auto; height:80vh;" class="bg-secondary">
+<div style="overflow-y: auto; height:80vh;" class="bg-light">
   <div class="container">
     <div class="page-inner">
       <div
@@ -30,8 +30,8 @@ $e_sale_order_count = $e_sale_order_result->fetch_assoc()['total'];
           <h6 class="op-7 mb-2">Gym Management System</h6>
         </div>
         <div class="ms-md-auto py-2 py-md-0">
-          <a href="#" class="btn btn-label-info btn-round me-2">Manage</a>
-          <a href="#" class="btn btn-primary btn-round">Add Customer</a>
+          <a href="./class_payment_list.php" class="btn btn-label-info btn-round me-2">Class Payment</a>
+          <a href="./member_list.php" class="btn btn-primary btn-round">Add New Member</a>
         </div>
       </div>
       <div class="row">
