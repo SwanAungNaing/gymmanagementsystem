@@ -224,6 +224,8 @@
 
 <!-- Kaiadmin DEMO methods, don't include it in your project! -->
 <script src="assets/js/setting-demo.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- <script src="assets/js/demo.js"></script> -->
 <script>
   $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
@@ -263,7 +265,8 @@
     });
     let status = localStorage.getItem("open_sidebar") + ".php" == lastIndex
     if (status) {
-      let getID = localStorage.getItem("open_sidebar").split("_")[0];
+      const value = localStorage.getItem("open_sidebar");
+      const getID = value.substring(0, value.lastIndexOf("_"));
       document.getElementById(getID).classList.add("show");
     }
 

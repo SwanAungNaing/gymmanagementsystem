@@ -100,8 +100,7 @@ if (isset($_POST['form_sub']) && $_POST['form_sub'] == 1) {
         }
     }
 }
-require "./layouts/header.php";
-?>
+require "./layouts/header.php"; ?>
 
 <div style="overflow-y: auto; height:80vh;">
     <div class="content-wrapper">

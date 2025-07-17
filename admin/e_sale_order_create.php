@@ -177,7 +177,7 @@ require "./layouts/header.php";
 <?php
 require "./layouts/footer.php";
 ?>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script> -->
 <script>
     $(document).ready(function() {
         function calculateTotalAmount() {
