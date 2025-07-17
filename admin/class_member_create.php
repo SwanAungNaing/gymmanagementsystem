@@ -78,20 +78,6 @@ require "./layouts/header.php";
                         <div class="card-body">
                             <form action="" method="POST">
                                 <div class="form-group mb-4">
-                                    <label for="brand_name_id">Class</label>
-                                    <select name="class_id" id="class_id" class="form-control">
-                                        <option value="">Select Class</option>
-                                        <?php foreach ($classes as $class) { ?>
-                                            <option value="<?= htmlspecialchars($class['id']) ?>" <?= ($class_id == $class['id']) ? 'selected' : '' ?>>
-                                                <?= htmlspecialchars($class['batch_name']) ?>
-                                            </option>
-                                        <?php } ?>
-                                    </select>
-                                    <?php if ($class_id_error) { ?>
-                                        <span class="text-danger"><?= htmlspecialchars($class_id_error) ?></span>
-                                    <?php } ?>
-                                </div>
-                                <div class="form-group mb-4">
                                     <label for="member_id">Member</label>
                                     <select name="member_id" id="member_id" class="form-control">
                                         <option value="">Select Member</option>
@@ -103,6 +89,20 @@ require "./layouts/header.php";
                                     </select>
                                     <?php if ($member_id_error) { ?>
                                         <span class="text-danger"><?= htmlspecialchars($member_id_error) ?></span>
+                                    <?php } ?>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="brand_name_id">Class</label>
+                                    <select name="class_id" id="class_id" class="form-control">
+                                        <option value="">Select Class</option>
+                                        <?php foreach ($classes as $class) { ?>
+                                            <option value="<?= htmlspecialchars($class['id']) ?>" <?= ($class_id == $class['id']) ? 'selected' : '' ?>>
+                                                <?= htmlspecialchars($class['batch_name']) ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                    <?php if ($class_id_error) { ?>
+                                        <span class="text-danger"><?= htmlspecialchars($class_id_error) ?></span>
                                     <?php } ?>
                                 </div>
 

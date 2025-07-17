@@ -141,20 +141,6 @@ require "./layouts/header.php";
                                     <?php } ?>
                                 </div>
                                 <div class="form-group mb-4">
-                                    <label for="trainer_id">Trainer</label>
-                                    <select name="trainer_id" id="trainer_id" class="form-control">
-                                        <option value="">Select Trainer</option>
-                                        <?php foreach ($trainers as $trainer) { ?>
-                                            <option value="<?= htmlspecialchars($trainer['id']) ?>" <?= ($trainer_id == $trainer['id']) ? 'selected' : '' ?>>
-                                                <?= htmlspecialchars($trainer['name']) ?>
-                                            </option>
-                                        <?php } ?>
-                                    </select>
-                                    <?php if ($trainer_id_error) { ?>
-                                        <span class="text-danger"><?= htmlspecialchars($trainer_id_error) ?></span>
-                                    <?php } ?>
-                                </div>
-                                <div class="form-group mb-4">
                                     <label for="service_id">Service</label>
                                     <select name="service_id" id="service_id" class="form-control">
                                         <option value="">Select Service</option>
@@ -166,6 +152,20 @@ require "./layouts/header.php";
                                     </select>
                                     <?php if ($service_id_error) { ?>
                                         <span class="text-danger"><?= htmlspecialchars($service_id_error) ?></span>
+                                    <?php } ?>
+                                </div>
+                                <div class="form-group mb-4">
+                                    <label for="trainer_id">Trainer</label>
+                                    <select name="trainer_id" id="trainer_id" class="form-control">
+                                        <option value="">Select Trainer</option>
+                                        <?php foreach ($trainers as $trainer) { ?>
+                                            <option value="<?= htmlspecialchars($trainer['id']) ?>" <?= ($trainer_id == $trainer['id']) ? 'selected' : '' ?>>
+                                                <?= htmlspecialchars($trainer['name']) ?>
+                                            </option>
+                                        <?php } ?>
+                                    </select>
+                                    <?php if ($trainer_id_error) { ?>
+                                        <span class="text-danger"><?= htmlspecialchars($trainer_id_error) ?></span>
                                     <?php } ?>
                                 </div>
                                 <div class="form-group mb-4">
