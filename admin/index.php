@@ -176,7 +176,7 @@ while ($row = $es_chart_result->fetch_assoc()) {
             <div class="card-body">
               <div class="mb-2"><i class="fas fa-money-bill-wave fa-2x text-success"></i></div>
               <h6 class="card-title">Class Payments</h6>
-              <h3 class="text-success">$<?= number_format($class_payment_total, 0) ?></h3>
+              <h3 class="text-success"><?= number_format($class_payment_total, 0) ?></h3>
             </div>
           </div>
         </div>
@@ -185,7 +185,7 @@ while ($row = $es_chart_result->fetch_assoc()) {
             <div class="card-body">
               <div class="mb-2"><i class="fas fa-shopping-cart fa-2x text-secondary"></i></div>
               <h6 class="card-title">E_sale Orders</h6>
-              <h3 class="text-secondary">$<?= number_format($e_sale_order_total, 0) ?></h3>
+              <h3 class="text-secondary"><?= number_format($e_sale_order_total, 0) ?></h3>
             </div>
           </div>
         </div>

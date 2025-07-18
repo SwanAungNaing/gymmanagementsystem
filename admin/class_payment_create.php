@@ -54,7 +54,7 @@ if (isset($_POST['form_sub']) && $_POST['form_sub'] == 1) {
         }
         if ($total + $total_amount > $class_price) {
             $error = true;
-            $class_member_id_error = "It's paid.";
+            $total_amount_error = "The amount has exceeded the approved limit.";
         } elseif ($total + $total_amount == $class_price) {
             $status = "paid";
         }

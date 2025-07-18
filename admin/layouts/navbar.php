@@ -31,21 +31,21 @@
         class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
         <div class="input-group">
           <div class="input-group-prepend">
-            <button type="submit" class="btn btn-search pe-1">
+            <!-- <button type="submit" class="btn btn-search pe-1">
               <i class="fa fa-search search-icon"></i>
-            </button>
-          </div>
+            </button> -->
+          <!-- </div>
           <input
             type="text"
             placeholder="Search ..."
             class="form-control" />
-        </div>
+        </div> -->
       </nav>
 
       <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
         <li
           class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none">
-          <a
+          <!-- <a
             class="nav-link dropdown-toggle"
             data-bs-toggle="dropdown"
             href="#"
@@ -53,8 +53,8 @@
             aria-expanded="false"
             aria-haspopup="true">
             <i class="fa fa-search"></i>
-          </a>
-          <ul class="dropdown-menu dropdown-search animated fadeIn">
+          </a> -->
+          <!-- <ul class="dropdown-menu dropdown-search animated fadeIn">
             <form class="navbar-left navbar-form nav-search">
               <div class="input-group">
                 <input
@@ -63,10 +63,10 @@
                   class="form-control" />
               </div>
             </form>
-          </ul>
+          </ul> -->
         </li>
         <li class="nav-item topbar-icon dropdown hidden-caret">
-          <a
+          <!-- <a
             class="nav-link dropdown-toggle"
             href="#"
             id="messageDropdown"
@@ -75,8 +75,8 @@
             aria-haspopup="true"
             aria-expanded="false">
             <i class="fa fa-envelope"></i>
-          </a>
-          <ul
+          </a> -->
+          <!-- <ul
             class="dropdown-menu messages-notif-box animated fadeIn"
             aria-labelledby="messageDropdown">
             <li>
@@ -293,7 +293,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </li>
 
         <li class="nav-item topbar-user dropdown hidden-caret">
