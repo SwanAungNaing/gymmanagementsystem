@@ -2,7 +2,7 @@
   <div class="sidebar-logo">
     <!-- Logo Header -->
     <div class="logo-header" data-background-color="dark">
-      <a href="index.php" class="logo">
+      <a href="" class="logo">
         <img
           src="assets/img/kaiadmin/logo_light.svg"
           alt="navbar brand"
@@ -26,6 +26,14 @@
   <div class="sidebar-wrapper scrollbar scrollbar-inner">
     <div class="sidebar-content">
       <ul class="nav nav-secondary">
+        <li class="nav-item active">
+          <a
+            href="../index.php"
+            class="collapsed">
+            <h2>Dashboard</h2>
+          </a>
+        </li>
+        </li>
 
         <!-- Trainer -->
         <li class="nav-item active">
