@@ -20,6 +20,7 @@ $equipments_sql = "SELECT e.id, e.price, bn.name AS brand_name, et.type_name AS 
                      FROM equipments e
                      LEFT JOIN brand_name bn ON e.brand_name_id = bn.id
                      LEFT JOIN equipment_type et ON e.equipment_type_id = et.id
+                     WHERE e.quantity > 0
                      ORDER BY bn.name, et.type_name";
 $equipments_res = $mysqli->query($equipments_sql);
 $equipments = [];
@@ -47,6 +48,11 @@ if (isset($_POST['form_sub']) && $_POST['form_sub'] == 1) {
     $order_date = $_POST['order_date'] ?? '';
     $total_amount = $_POST['total_amount'] ?? '';
 
+    $equipment_data = selectData('equipments', $mysqli, '*', 'where id =' . $equipment_id);
+    $data = $equipment_data->fetch_assoc();
+    $instock = $data['quantity'];
+    // var_dump($instock);
+    // die();
     // Validation
     if (empty($equipment_id)) {
         $error = true;
@@ -56,6 +62,12 @@ if (isset($_POST['form_sub']) && $_POST['form_sub'] == 1) {
         $error = true;
         $member_id_error = "Please select a Member.";
     }
+
+    if ($quantity > $instock) {
+        $error = true;
+        $quantity_error = "Please enter less than of equal of instock $instock";
+    }
+
     if (empty($quantity)) {
         $error = true;
         $quantity_error = "Please enter Quantity.";
@@ -83,9 +95,16 @@ if (isset($_POST['form_sub']) && $_POST['form_sub'] == 1) {
         ];
 
         if (insertData('esale_order', $mysqli, $data)) {
-            $url = $admin_base_url . "e_sale_order_list.php?success=Equipment Sale Order Recorded Successfully";
-            header("Location: $url");
-            exit;
+            $current_stock = $instock - $quantity;
+            $dataUpdate = [
+                'quantity' => $mysqli->real_escape_string($current_stock),
+            ];
+            $update_instock = updateData("equipments", $mysqli, $dataUpdate, "`id`='$equipment_id'");
+            if ($update_instock) {
+                $url = $admin_base_url . "e_sale_order_list.php?success=Equipment Sale Order Recorded Successfully";
+                header("Location: $url");
+                exit;
+            }
         } else {
             $error = true;
             echo "Error inserting data: " . $mysqli->error;

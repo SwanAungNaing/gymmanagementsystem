@@ -258,14 +258,14 @@
         <li class="nav-item active">
           <a
             data-bs-toggle="collapse"
-            href="#brand"
+            href="#brand_name"
             class="collapsed"
             aria-expanded="false">
             <i class="fas fa-tags"></i>
             <p>Brand Names</p>
             <span class="caret"></span>
           </a>
-          <div class="collapse" id="brand">
+          <div class="collapse" id="brand_name">
             <ul class="nav nav-collapse">
               <li class="nav-each-link" data-value="brand_name_create">
                 <a href="brand_name_create.php">

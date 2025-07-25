@@ -17,7 +17,7 @@ require("../auth/check_auth.php");
 
   <!-- Fonts and icons -->
   <!-- Font Awesome CDN (No login required) -->
-  <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
+  <!-- <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script> -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <script src="assets/js/plugin/webfont/webfont.min.js"></script>

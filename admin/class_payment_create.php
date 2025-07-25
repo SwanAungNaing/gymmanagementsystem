@@ -21,6 +21,8 @@ $class_members_sql = "SELECT cm.id, m.name AS member_name, c.batch_name AS class
                      FROM class_members cm
                      LEFT JOIN members m ON cm.member_id = m.id
                      LEFT JOIN classes c ON cm.class_id = c.id
+                     INNER JOIN class_payment cp ON cm.id = cp.class_member_id
+                     WHERE cp.status = 'pending'
                      ORDER BY m.name, c.batch_name";
 $class_members_res = $mysqli->query($class_members_sql);
 $class_members = [];
@@ -158,4 +160,3 @@ require "./layouts/header.php";
 <?php
 require "./layouts/footer.php";
 ?>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>

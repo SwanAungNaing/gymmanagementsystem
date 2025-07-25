@@ -36,5 +36,7 @@ function updateData($table, $mysqli, $data, $where)
     }
     $set_string = implode(', ', $set_parts);
     $sql = "UPDATE `$table` SET $set_string WHERE $where";
+    // var_dump($sql);
+    // die();
     return $mysqli->query($sql);
 }
